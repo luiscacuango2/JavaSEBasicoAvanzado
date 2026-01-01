@@ -1,0 +1,101 @@
+package com.anncode.amazonviewer.model;
+
+import java.util.Date;
+
+/**
+ * Clase base para todas las publicaciones impresas o digitales.
+ * <p>
+ * Agrupa atributos comunes como título, fecha de edición y editorial.
+ * </p>
+ * @author Luigi
+ * @version 1.2
+ * @since 2025-12-31
+ */
+public class Publication {
+
+    /** Título de la publicación */
+    private String title;
+    /** Fecha en la que se realizó la edición */
+    private Date edititionDate;
+    /** Nombre de la empresa editorial */
+    private String editorial;
+    /** Listado de nombres de los autores de la publicación */
+    private String[] authors;
+
+    /**
+     * Constructor para inicializar los datos generales de una publicación.
+     * @param title Título de la obra.
+     * @param edititionDate Fecha de publicación o edición.
+     * @param editorial Nombre de la editorial encargada.
+     */
+    public Publication(String title, Date edititionDate, String editorial) {
+        super();
+        this.title = title;
+        this.edititionDate = edititionDate;
+        this.editorial = editorial;
+    }
+
+    /**
+     * Recupera el título de la obra.
+     * @return El título de la publicación.
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * Define el título de la obra.
+     * @param title El título a asignar a la obra.
+     */
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    /**
+     * Recupera la fecha de edición de la obra.
+     * @return El objeto {@code Date} con la fecha de edición.
+     */
+    public Date getEdititionDate() {
+        return edititionDate;
+    }
+
+    /**
+     * Define la fecha de edición de la obra.
+     * @param edititionDate La fecha de edición a establecer.
+     */
+    public void setEdititionDate(Date edititionDate) {
+        this.edititionDate = edititionDate;
+    }
+
+    /**
+     * Recupera el nombre de la editorial.
+     * @return El nombre de la editorial.
+     */
+    public String getEditorial() {
+        return editorial;
+    }
+
+    /**
+     * Define el nombre de la editorial.
+     * @param editorial La editorial a asignar.
+     */
+    public void setEditorial(String editorial) {
+        this.editorial = editorial;
+    }
+
+    /**
+     * Obtiene el listado de autores asociados a la publicación.
+     * @return Un arreglo de {@code String} con los nombres de los autores.
+     */
+    public String[] getAuthors() {
+        return authors;
+    }
+
+    /**
+     * Establece los autores de la publicación.
+     * @param authors Un arreglo de {@code String} que contiene los autores.
+     */
+    public void setAuthors(String[] authors) {
+        this.authors = authors;
+    }
+}

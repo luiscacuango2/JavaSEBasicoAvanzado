@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="40b3154f-d3dc-4f07-824e-fbd0afa22149" name="Changes" comment="docs: Generación de Documentación JavaDoc en HTML">
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/.classpath" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/.project" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/AmazonViewer.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/bin/com/anncode/amazonviewer/Main.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/bin/com/anncode/amazonviewer/model/Book.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/bin/com/anncode/amazonviewer/model/Chapter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/bin/com/anncode/amazonviewer/model/Film.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/bin/com/anncode/amazonviewer/model/IVisualizable.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/bin/com/anncode/amazonviewer/model/Magazine.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/bin/com/anncode/amazonviewer/model/Movie.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/bin/com/anncode/amazonviewer/model/Publication.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/bin/com/anncode/amazonviewer/model/Serie.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/bin/com/anncode/util/AmazonUtil.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/allclasses-index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/allclasses.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/allpackages-index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/Main.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/class-use/Main.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/Book.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/Chapter.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/Film.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/IVisualizable.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/Magazine.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/Movie.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/Publication.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/Serie.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/class-use/Book.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/class-use/Chapter.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/class-use/Film.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/class-use/IVisualizable.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/class-use/Magazine.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/class-use/Movie.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/class-use/Publication.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/class-use/Serie.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/package-summary.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/package-tree.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/package-use.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/package-summary.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/package-tree.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/package-use.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/util/AmazonUtil.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/util/class-use/AmazonUtil.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/util/package-summary.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/util/package-tree.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/util/package-use.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/constant-values.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/copy.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/deprecated-list.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/element-list" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/help-doc.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/index-all.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-1.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-10.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-11.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-2.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-3.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-4.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-5.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-6.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-7.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-8.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-9.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/jquery-ui.overrides.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/jquery/external/jquery/jquery.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/jquery/jquery-3.7.1.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/jquery/jquery-ui.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/jquery/jquery-ui.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/jquery/jszip-utils/dist/jszip-utils-ie.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/jquery/jszip-utils/dist/jszip-utils-ie.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/jquery/jszip-utils/dist/jszip-utils.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/jquery/jszip-utils/dist/jszip-utils.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/jquery/jszip/dist/jszip.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/jquery/jszip/dist/jszip.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/legal/ADDITIONAL_LICENSE_INFO" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/legal/ASSEMBLY_EXCEPTION" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/legal/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/legal/jquery.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/legal/jqueryUI.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/legal/jszip.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/legal/pako.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/link.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/member-search-index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/member-search-index.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/module-search-index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/overview-summary.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/overview-tree.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/package-search-index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/package-search-index.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/resources/glass.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/resources/x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/script-dir/jquery-3.7.1.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/script-dir/jquery-ui.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/script-dir/jquery-ui.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/script.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/search-page.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/search.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/search.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/stylesheet.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/tag-search-index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/type-search-index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/doc/type-search-index.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/libs/makefile.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/reporte2018-01-26.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/src/com/anncode/amazonviewer/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/src/com/anncode/amazonviewer/model/Book.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/src/com/anncode/amazonviewer/model/Chapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/src/com/anncode/amazonviewer/model/Film.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/src/com/anncode/amazonviewer/model/IVisualizable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/src/com/anncode/amazonviewer/model/Magazine.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/src/com/anncode/amazonviewer/model/Movie.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/src/com/anncode/amazonviewer/model/Publication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/src/com/anncode/amazonviewer/model/Serie.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AmazonViewer/src/com/anncode/util/AmazonUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/reporte.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/reporte2025-12-31-6-9-35-412.txt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;luiscacuango2&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/luiscacuango2/JavaSEBasicoAvanzado.git",
+    "accountId": "77989d75-a282-4309-ba94-9da89e5ceb96"
+  }
+}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="37beOagCFFIk3G4hb8RkRo2jY8o" />
+  <component name="ProjectLevelVcsManager">
+    <OptionsSetting value="false" id="Update" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/luigi/Documentos/ProyectosSpring/JavaSEBasicoAvanzado/AmazonViewer",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.28238.7" />
+        <option value="bundled-js-predefined-d6986cc7102b-a71380e98a7c-JavaScript-IU-252.28238.7" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="40b3154f-d3dc-4f07-824e-fbd0afa22149" name="Changes" comment="" />
+      <created>1767176166193</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1767176166193</updated>
+      <workItem from="1767176167505" duration="218000" />
+      <workItem from="1767176509811" duration="197000" />
+      <workItem from="1767176809488" duration="15359000" />
+    </task>
+    <task id="LOCAL-00001" summary="docs: Generación de Documentación JavaDoc en HTML">
+      <option name="closed" value="true" />
+      <created>1767230434702</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1767230434702</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="docs: Generación de Documentación JavaDoc en HTML" />
+    <option name="LAST_COMMIT_MESSAGE" value="docs: Generación de Documentación JavaDoc en HTML" />
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
+  </component>
+</project>
