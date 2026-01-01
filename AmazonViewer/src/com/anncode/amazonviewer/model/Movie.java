@@ -1,19 +1,22 @@
 package com.anncode.amazonviewer.model;
 
+import com.anncode.amazonviewer.dao.MovieDAO;
+
 import java.util.ArrayList;
 import java.util.Date;
 
 /**
+ * <h2>Movie</h2>
  * Representa una película dentro de la aplicación.
  * <p>
- * Esta clase extiende de {@link Film} para heredar las propiedades básicas de una producción
+ * Esta clase extiende o hereda de {@link Film} las propiedades básicas de una producción
  * e implementa {@link IVisualizable} para gestionar el control de tiempo de visualización.
  * </p>
  * @author Luigi
  * @version 1.2
  * @since 2025-12-31
  */
-public class Movie extends Film implements IVisualizable {
+public class Movie extends Film implements IVisualizable, MovieDAO {
 
     /** Identificador único de la película */
     private int id;
@@ -33,12 +36,24 @@ public class Movie extends Film implements IVisualizable {
         setYear(year);
     }
 
+    public Movie() {
+
+    }
+
     /**
      * Obtiene el identificador único de la película.
      * @return El identificador único de la película.
      */
     public int getId() {
         return id;
+    }
+
+    /**
+     * Define el identificador único de la película.
+     * @param id El identificador a asignar.
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 
     /**
@@ -104,13 +119,8 @@ public class Movie extends Film implements IVisualizable {
      * @return Un {@code ArrayList} con objetos {@link Movie} para inicializar la aplicación.
      */
     public static ArrayList<Movie> makeMoviesList() {
-        ArrayList<Movie> movies = new ArrayList<>();
-
-        for (int i = 1; i <= 5; i++) {
-            movies.add(new Movie("Movie " + i, "Genero " + i, "Creador " + i, 120+i, (short)(2017+i)));
-        }
-
-        return movies;
+        Movie movie = new Movie();
+        return movie.read();
     }
 
     /**
@@ -125,13 +135,30 @@ public class Movie extends Film implements IVisualizable {
         setViewed(true);
         Date dateI = startToSee(new Date());
 
-        for (int i = 0; i < 100000; i++) {
-            System.out.println("..........");
+        System.out.println("\nReproduciendo: " + getTitle());
+
+        // Simulación de barra de progreso (reemplaza el bucle de los puntos)
+        int totalPasos = 20;
+        for (int i = 0; i <= totalPasos; i++) {
+            String bar = "[";
+            for (int j = 0; j < totalPasos; j++) {
+                bar += (j < i) ? "=" : " ";
+            }
+            bar += "] " + (i * 100 / totalPasos) + "%";
+
+            // \r mueve el cursor al inicio de la línea para sobrescribir
+            System.out.print("\r" + bar);
+
+            try {
+                Thread.sleep(50); // Pausa de 50ms para que la barra se mueva
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
         }
 
         stopToSee(dateI, new Date());
-        System.out.println();
-        System.out.println("Viste: " + toString());
-        System.out.println("Por: " + getTimeViewed() + " milisegundos");
+        System.out.println("\n\nVisualización finalizada.");
+        System.out.println(toString());
+        System.out.println("Tiempo total: " + getTimeViewed() + " ms");
     }
 }

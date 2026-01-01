@@ -234,7 +234,7 @@ public class Main {
 			if(response > 0) {
 				Book bookSelected = books.get(response-1);
                 bookSelected.view();
-			}
+            }
 
 		}while(exit !=0);
 	}

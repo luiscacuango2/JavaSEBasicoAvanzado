@@ -3,6 +3,7 @@ package com.anncode.amazonviewer.model;
 import java.util.ArrayList;
 
 /**
+ * <h2>Chapter</h2>
  * Representa los capítulos individuales de una serie.
  * <p>
  * Hereda de {@link Movie} y contiene información específica sobre el número

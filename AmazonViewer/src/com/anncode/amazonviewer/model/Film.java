@@ -26,6 +26,8 @@ public abstract class Film {
     /** Estado de visualización del contenido */
     private boolean viewed;
 
+    public Film() {}
+
     /**
      * Constructor para inicializar los atributos base de un Film.
      * @param title Título de la obra.

@@ -1,0 +1,21 @@
+package com.anncode.amazonviewer.db;
+
+/**
+ * ARCHIVO DE EJEMPLO
+ * Renombrar este archivo a DBConfig.java y configurar las credenciales locales.
+ */
+public class DBConfig {
+    public static final String DRIVER   = "com.mysql.cj.jdbc.Driver";
+    public static final String HOST     = "jdbc:mysql://localhost:3306/";
+    public static final String DB_NAME  = "amazonviewer";
+
+    // Parámetros recomendados para MySQL 8/9
+    public static final String URL_PARAMS = "?useSSL=false"
+                                          + "&serverTimezone=UTC"
+                                          + "&allowPublicKeyRetrieval=true";
+
+    public static final String USER     = "TU_USUARIO";
+    public static final String PASSWORD = "TU_CONTRASEÑA";
+
+    public static final String FULL_URL = HOST + DB_NAME + URL_PARAMS;
+}

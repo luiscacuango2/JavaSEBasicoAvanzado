@@ -1,0 +1,29 @@
+# --- Java ---
+*.class
+*.log
+*.war
+*.ear
+
+# --- Binarios y compilación ---
+/bin/
+/out/
+/build/
+
+# --- IntelliJ IDEA ---
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# --- Base de Datos (Seguridad) ---
+# Ignoramos la configuración de conexión porque contiene contraseñas
+AmazonViewer/src/com/anncode/amazonviewer/db/DBConfig.java
+
+# --- Reportes generados ---
+# No queremos subir los reportes de texto generados por la aplicación
+*.txt
+
+# --- Sistema Operativo ---
+.DS_Store
+Thumbs.db

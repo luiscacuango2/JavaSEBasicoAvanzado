@@ -1,7 +1,11 @@
 package com.anncode.amazonviewer.model;
 
+import com.anncode.util.AmazonUtil;
+
 import java.util.ArrayList;
 import java.util.Date;
+
+import com.anncode.util.AmazonUtil;
 
 /**
  * Book es una clase que representa los libros en la aplicación.
@@ -18,6 +22,7 @@ public class Book extends Publication implements IVisualizable {
     private String isbn;
     private boolean readed;
     private int timeReaded;
+    private ArrayList<Page> pages;
 
     /**
      * Constructor para crear una instancia de la clase {@code Book}
@@ -27,10 +32,11 @@ public class Book extends Publication implements IVisualizable {
      * @param editorial     Nombre del editorial del libro.
      * @param authors       AArreglo de autores del libro.
      */
-    public Book(String title, Date edititionDate, String editorial, String[] authors) {
+    public Book(String title, Date edititionDate, String editorial, String[] authors, ArrayList<Page> pages) {
         super(title, edititionDate, editorial);
         // TODO Auto-generated constructor stub
         setAuthors(authors);
+        this.pages = pages;
     }
 
 
@@ -54,14 +60,7 @@ public class Book extends Publication implements IVisualizable {
      * @return "Sí" si fue leído, "No" en caso contrario.
      */
     public String isReaded() {
-        String leido = "";
-        if (readed == true) {
-            leido = "Sí";
-        } else {
-            leido = "No";
-        }
-
-        return leido;
+        return readed ? "Sí" : "No";
     }
 
 
@@ -81,6 +80,14 @@ public class Book extends Publication implements IVisualizable {
 
     public void setTimeReaded(int timeReaded) {
         this.timeReaded = timeReaded;
+    }
+
+    public ArrayList<Page> getPages() {
+        return pages;
+    }
+
+    public void setPages(ArrayList<Page> pages) {
+        this.pages = pages;
     }
 
     /**
@@ -137,20 +144,49 @@ public class Book extends Publication implements IVisualizable {
         setReaded(true);
         Date dateI = startToSee(new Date());
 
-        for (int i = 0; i < 100000; i++) {
-            System.out.println("..........");
-        }
+        int i = 0;
+        do {
+            // Limpiamos la vista con una cabecera clara en lugar de miles de puntos
+            System.out.println("\n==============================================");
+            System.out.println(" LEYENDO: " + getTitle().toUpperCase());
+            System.out.println(" Editorial: " + getEditorial());
+            System.out.println(" Pagina: " + getPages().get(i).getNumber() + " de " + getPages().size());
+            System.out.println("----------------------------------------------");
+            System.out.println(getPages().get(i).getContent());
+            System.out.println("==============================================\n");
 
-        //Termine de verla
+            if (i > 0) {
+                System.out.println("1. Regresar Página");
+            }
+            if (i < getPages().size() - 1) {
+                System.out.println("2. Siguiente Página");
+            }
+            System.out.println("0. Cerrar Libro");
+            System.out.println();
+
+            int response = AmazonUtil.validateUserResponseMenu(0, 2);
+
+            if (response == 2 && i < getPages().size() - 1) {
+                i++;
+            } else if (response == 1 && i > 0) {
+                i--;
+            } else if (response == 0) {
+                break;
+            }
+
+        } while (i < getPages().size());
+
+        // Terminamos la lectura
         stopToSee(dateI, new Date());
-        System.out.println();
-        System.out.println("Leíste: " + toString());
-        System.out.println("Por: " + getTimeReaded() + " milisegundos");
+        System.out.println("\n**********************************************");
+        System.out.println(" FINALIZASTE LA LECTURA DE: " + getTitle());
+        System.out.println(" Tiempo total de lectura: " + getTimeReaded() + " milisegundos");
+        System.out.println("**********************************************\n");
+
     }
 
     /**
-     * Genera una lista de libros ficticios para poblar la aplicación.
-     *
+     * Genera datos de prueba para los libros.
      * @return Un {@code ArrayList} de objetos {@link Book}.
      */
     public static ArrayList<Book> makeBookList() {
@@ -159,11 +195,20 @@ public class Book extends Publication implements IVisualizable {
         for (int i = 0; i < 3; i++) {
             authors[i] = "author " + i;
         }
+
+        ArrayList<Page> pages = new ArrayList();
+        int pagina = 0;
+        for (int i = 0; i < 3; i++) {
+            pagina = i + 1;
+            pages.add(new Book.Page(pagina, "El contenido de la página " + pagina));
+        }
+
         for (int i = 1; i <= 5; i++) {
-            books.add(new Book("Book " + i, new Date(), "editorial " + i, authors));
+            books.add(new Book("Book " + i, new Date(), "editorial " + i, authors, pages));
         }
 
         return books;
+
     }
 
     public static class Page {
@@ -172,7 +217,6 @@ public class Book extends Publication implements IVisualizable {
         private String content;
 
         public Page(int number, String content) {
-            super();
             this.number = number;
             this.content = content;
         }
