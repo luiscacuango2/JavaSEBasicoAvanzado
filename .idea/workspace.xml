@@ -4,59 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="40b3154f-d3dc-4f07-824e-fbd0afa22149" name="Changes" comment="docs: Generación de Documentación JavaDoc en HTML.">
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/allclasses-index.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/allclasses-index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/allclasses.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/allclasses.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/allpackages-index.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/allpackages-index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/Main.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/Main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/class-use/Main.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/class-use/Main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/Book.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/Book.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/Chapter.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/Chapter.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/Film.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/Film.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/IVisualizable.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/IVisualizable.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/Magazine.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/Magazine.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/Movie.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/Movie.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/Publication.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/Publication.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/Serie.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/Serie.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/class-use/Book.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/class-use/Book.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/class-use/Chapter.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/class-use/Chapter.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/class-use/Film.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/class-use/Film.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/class-use/IVisualizable.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/class-use/IVisualizable.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/class-use/Magazine.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/class-use/Magazine.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/class-use/Movie.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/class-use/Movie.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/class-use/Publication.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/class-use/Publication.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/class-use/Serie.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/class-use/Serie.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/package-summary.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/package-tree.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/package-use.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/model/package-use.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/package-summary.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/package-tree.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/package-use.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/amazonviewer/package-use.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/util/AmazonUtil.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/util/AmazonUtil.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/util/class-use/AmazonUtil.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/util/class-use/AmazonUtil.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/util/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/util/package-summary.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/util/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/util/package-tree.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/util/package-use.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/com/anncode/util/package-use.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/constant-values.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/constant-values.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/deprecated-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/deprecated-list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/help-doc.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/help-doc.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-1.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-1.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-10.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-10.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-11.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-11.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-2.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-2.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-3.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-3.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-4.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-4.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-5.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-5.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-6.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-6.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-7.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-7.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-8.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-8.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-9.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/index-files/index-9.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/member-search-index.zip" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/member-search-index.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/overview-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/overview-summary.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/overview-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/overview-tree.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/package-search-index.zip" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/package-search-index.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmazonViewer/doc/type-search-index.zip" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/doc/type-search-index.zip" afterDir="false" />
+    <list default="true" id="40b3154f-d3dc-4f07-824e-fbd0afa22149" name="Changes" comment="docs: Cambios en la Documentación JavaDoc en HTML.">
+      <change beforePath="$PROJECT_DIR$/AmazonViewer/src/com/anncode/amazonviewer/model/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonViewer/src/com/anncode/amazonviewer/model/Book.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,7 +84,7 @@
       <updated>1767176166193</updated>
       <workItem from="1767176167505" duration="218000" />
       <workItem from="1767176509811" duration="197000" />
-      <workItem from="1767176809488" duration="16232000" />
+      <workItem from="1767176809488" duration="17549000" />
     </task>
     <task id="LOCAL-00001" summary="docs: Generación de Documentación JavaDoc en HTML">
       <option name="closed" value="true" />
@@ -153,7 +102,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767235176670</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="docs: Cambios en la Documentación JavaDoc en HTML.">
+      <option name="closed" value="true" />
+      <created>1767236095773</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1767236095773</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -162,7 +119,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="docs: Generación de Documentación JavaDoc en HTML" />
     <MESSAGE value="docs: Generación de Documentación JavaDoc en HTML." />
-    <option name="LAST_COMMIT_MESSAGE" value="docs: Generación de Documentación JavaDoc en HTML." />
+    <MESSAGE value="docs: Cambios en la Documentación JavaDoc en HTML." />
+    <option name="LAST_COMMIT_MESSAGE" value="docs: Cambios en la Documentación JavaDoc en HTML." />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

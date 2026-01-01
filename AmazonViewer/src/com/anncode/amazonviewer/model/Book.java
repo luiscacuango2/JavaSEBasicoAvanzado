@@ -14,72 +14,74 @@ import java.util.Date;
  * @since 2025-12-31
  */
 public class Book extends Publication implements IVisualizable {
-	private int id;
-	private String isbn;
-	private boolean readed;
-	private int timeReaded;
+    private int id;
+    private String isbn;
+    private boolean readed;
+    private int timeReaded;
 
     /**
      * Constructor para crear una instancia de la clase {@code Book}
-     * @param title Título del libro.
+     *
+     * @param title         Título del libro.
      * @param edititionDate Fecha de edición del libro.
-     * @param editorial Nombre del editorial del libro.
-     * @param authors AArreglo de autores del libro.
+     * @param editorial     Nombre del editorial del libro.
+     * @param authors       AArreglo de autores del libro.
      */
-	public Book(String title, Date edititionDate, String editorial, String[] authors) {
-		super(title, edititionDate, editorial);
-		// TODO Auto-generated constructor stub
-		setAuthors(authors);
-	}
+    public Book(String title, Date edititionDate, String editorial, String[] authors) {
+        super(title, edititionDate, editorial);
+        // TODO Auto-generated constructor stub
+        setAuthors(authors);
+    }
 
 
-	public int getId() {
-		return id;
-	}
+    public int getId() {
+        return id;
+    }
 
 
-	public String getIsbn() {
-		return isbn;
-	}
+    public String getIsbn() {
+        return isbn;
+    }
 
 
-	public void setIsbn(String isbn) {
-		this.isbn = isbn;
-	}
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
 
     /**
      * Devuelve una cadena de texto indicando si el libro fue leído.
+     *
      * @return "Sí" si fue leído, "No" en caso contrario.
      */
-	public String isReaded() {
-		String leido = "";
-		if(readed == true) {
-			leido = "Sí";
-		}else {
-			leido = "No";
-		}
-		
-		return leido;
-	}
+    public String isReaded() {
+        String leido = "";
+        if (readed == true) {
+            leido = "Sí";
+        } else {
+            leido = "No";
+        }
+
+        return leido;
+    }
 
 
-	public void setReaded(boolean readed) {
-		this.readed = readed;
-	}
-	
-	public boolean getIsReaded() {
-		return readed;
-	}
+    public void setReaded(boolean readed) {
+        this.readed = readed;
+    }
+
+    public boolean getIsReaded() {
+        return readed;
+    }
 
 
-	public int getTimeReaded() {
-		return timeReaded;
-	}
+    public int getTimeReaded() {
+        return timeReaded;
+    }
 
 
-	public void setTimeReaded(int timeReaded) {
-		this.timeReaded = timeReaded;
-	}
+    public void setTimeReaded(int timeReaded) {
+        this.timeReaded = timeReaded;
+    }
 
     /**
      * {@inheritDoc}
@@ -88,6 +90,7 @@ public class Book extends Publication implements IVisualizable {
      * Incluye el título, la editorial, la fecha de edición y recorre el arreglo
      * de autores para listarlos de forma tabular.
      * </p>
+     *
      * @return Una cadena de texto ({@code String}) formateada con la ficha técnica del libro.
      */
     @Override
@@ -101,30 +104,31 @@ public class Book extends Publication implements IVisualizable {
         for (int i = 0; i < getAuthors().length; i++) {
             detailBook += "\t" + getAuthors()[i] + " ";
         }
-        return  detailBook;
+        return detailBook;
     }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	public Date startToSee(Date dateI) {
-		// TODO Auto-generated method stub
-		return dateI;
-	}
+    @Override
+    public Date startToSee(Date dateI) {
+        // TODO Auto-generated method stub
+        return dateI;
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	public void stopToSee(Date dateI, Date dateF) {
-		// TODO Auto-generated method stub
-		if (dateF.getTime() > dateI.getTime()) {
-			setTimeReaded((int)(dateF.getTime() - dateI.getTime()));
-		}else {
-			setTimeReaded(0);
-		}
-	}
+    @Override
+    public void stopToSee(Date dateI, Date dateF) {
+        // TODO Auto-generated method stub
+        if (dateF.getTime() > dateI.getTime()) {
+            setTimeReaded((int) (dateF.getTime() - dateI.getTime()));
+        } else {
+            setTimeReaded(0);
+        }
+    }
+
     /**
      * Método que simula la lectura de un libro, calcula el tiempo transcurrido
      * y marca el libro como leído.
@@ -146,19 +150,55 @@ public class Book extends Publication implements IVisualizable {
 
     /**
      * Genera una lista de libros ficticios para poblar la aplicación.
+     *
      * @return Un {@code ArrayList} de objetos {@link Book}.
      */
-	public static ArrayList<Book> makeBookList() {
-		ArrayList<Book> books = new ArrayList();
-		String[] authors = new String[3];
-		for (int i = 0; i < 3; i++) {
-			authors[i] = "author "+i;
-		}
-		for (int i = 1; i <= 5; i++) {
-			books.add(new Book("Book " + i, new Date(), "editorial " + i, authors));
-		}
-		
-		return books;
-	}
-	
+    public static ArrayList<Book> makeBookList() {
+        ArrayList<Book> books = new ArrayList();
+        String[] authors = new String[3];
+        for (int i = 0; i < 3; i++) {
+            authors[i] = "author " + i;
+        }
+        for (int i = 1; i <= 5; i++) {
+            books.add(new Book("Book " + i, new Date(), "editorial " + i, authors));
+        }
+
+        return books;
+    }
+
+    public static class Page {
+        private int id;
+        private int number;
+        private String content;
+
+        public Page(int number, String content) {
+            super();
+            this.number = number;
+            this.content = content;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public int getNumber() {
+            return number;
+        }
+
+        public void setNumber(int number) {
+            this.number = number;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
+    }
 }
