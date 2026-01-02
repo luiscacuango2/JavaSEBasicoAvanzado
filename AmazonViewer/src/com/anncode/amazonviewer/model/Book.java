@@ -3,6 +3,8 @@ package com.anncode.amazonviewer.model;
 import com.anncode.amazonviewer.dao.BookDAO;
 import com.anncode.amazonviewer.model.Page;
 import com.anncode.util.AmazonUtil;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -90,11 +92,27 @@ public class Book extends Publication implements IVisualizable, BookDAO {
      */
     @Override
     public String toString() {
-        return "\n :: BOOK ::" +
+        // Creamos el formato deseado: día/mes/año
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String dateFormated = sdf.format(getEditionDate());
+
+        String detailBook = "\n :: BOOK ::" +
                 "\n Title: " + getTitle() +
                 "\n Editorial: " + getEditorial() +
-                "\n Edition Date: " + getEditionDate() +
-                "\n Authors: " + getAuthors();
+                "\n Edition Date: " + dateFormated + // Usamos la fecha formateada
+                "\n Authors: ";
+        // Obtenemos el arreglo de autores
+        String[] authors = getAuthors();
+
+        if (authors != null && authors.length > 0) {
+            for (int i = 0; i < authors.length; i++) {
+                // Añadimos el autor y una coma si no es el último
+                detailBook += authors[i] + (i < authors.length - 1 ? ", " : "");
+            }
+        } else {
+            detailBook += "Sin autores registrados";
+        }
+        return detailBook;
     }
 
     /**
@@ -124,47 +142,54 @@ public class Book extends Publication implements IVisualizable, BookDAO {
      * y marca el libro como leído.
      */
     public void view() {
-        setReaded(true);
+        // 1. Iniciamos en false para asegurar que solo la lectura completa lo cambie
+        setReaded(false);
         Date dateI = startToSee(new Date());
 
         int i = 0;
+        int response = 0;
+        boolean finished = false;
+
         do {
-            // Limpiamos la vista con una cabecera clara en lugar de miles de puntos
-            System.out.println("\n==============================================");
+            System.out.println("==============================================");
             System.out.println(" LEYENDO: " + getTitle().toUpperCase());
-            System.out.println(" Editorial: " + getEditorial());
             System.out.println(" Pagina: " + getPages().get(i).getNumber() + " de " + getPages().size());
             System.out.println("----------------------------------------------");
             System.out.println(getPages().get(i).getContent());
             System.out.println("==============================================\n");
 
-            if (i > 0) {
-                System.out.println("1. Regresar Página");
-            }
-            if (i < getPages().size() - 1) {
-                System.out.println("2. Siguiente Página");
-            }
+            if (i > 0) System.out.println("1. Regresar Página");
+            if (i < getPages().size() - 1) System.out.println("2. Siguiente Página");
             System.out.println("0. Cerrar Libro");
-            System.out.println();
 
-            int response = AmazonUtil.validateUserResponseMenu(0, 2);
+            response = AmazonUtil.validateUserResponseMenu(0, 2);
 
             if (response == 2 && i < getPages().size() - 1) {
                 i++;
+                // Detectamos si el usuario llegó a la última página
+                if (i == getPages().size() - 1) {
+                    finished = true;
+                }
             } else if (response == 1 && i > 0) {
                 i--;
-            } else if (response == 0) {
-                break;
             }
 
-        } while (i < getPages().size());
+        } while (response != 0);
 
-        // Terminamos la lectura
+        // 2. Lógica de Persistencia: Solo si leyó hasta el final
+        if (finished || getPages().size() == 1) {
+            setReaded(true); // Actualizamos objeto en memoria
+
+            // INSERT en la base de datos (Tabla viewed)
+            this.setBookRead(this);
+
+            System.out.println("**********************************************");
+            System.out.println(" ¡LIBRO COMPLETADO! Registrado en tu historial.");
+            System.out.println("**********************************************");
+        }
+
         stopToSee(dateI, new Date());
-        System.out.println("\n**********************************************");
-        System.out.println(" FINALIZASTE LA LECTURA DE: " + getTitle());
-        System.out.println(" Tiempo total de lectura: " + getTimeReaded() + " milisegundos");
-        System.out.println("**********************************************\n");
+        System.out.println(" Tiempo total de lectura: " + getTimeReaded() + " ms");
     }
 
     /**

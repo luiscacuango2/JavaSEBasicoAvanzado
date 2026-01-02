@@ -132,7 +132,9 @@ public interface BookDAO extends IDBConnection {
                     read = rs.next();
                 }
             }
-        } catch (SQLException e) { e.printStackTrace(); }
+        } catch (SQLException e) {
+            System.out.println("Error al verificar estado de lectura del libro:" + e.getMessage());
+        }
         return read;
     }
 }

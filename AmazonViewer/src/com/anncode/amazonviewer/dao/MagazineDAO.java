@@ -68,17 +68,12 @@ public interface MagazineDAO extends IDBConnection {
             while (rs.next()) {
                 String title = rs.getString(TMagazine.TITLE);
                 String editorial = rs.getString(TMagazine.EDITORIAL);
-
-                // Conversión de fecha SQL a Util
                 java.util.Date editionDate = new java.util.Date(rs.getDate(TMagazine.EDITION_DATE).getTime());
 
                 Magazine magazine = new Magazine(title, editionDate, editorial);
-
-                // ASIGNACIÓN DE ID Y AUTORES (La columna que agregamos en SQL)
                 magazine.setId(rs.getInt(TMagazine.ID));
-
-                // IMPORTANTE: Asegúrate de que tu clase Magazine tenga setAuthors()
                 magazine.setAuthors(rs.getString("authors"));
+                magazine.setReaded(getMagazineRead(connection, magazine.getId()));
 
                 magazines.add(magazine);
             }
@@ -95,7 +90,6 @@ public interface MagazineDAO extends IDBConnection {
                 " WHERE " + TViewed.ID_MATERIAL + " = ?" +
                 " AND " + TViewed.ID_ELEMENT + " = ?" +
                 " AND " + TViewed.ID_USER + " = ?";
-
         try {
             // Obtenemos dinámicamente el ID del material "Magazine"
             int idMaterial = getMaterialIdByName("Magazine", connection);

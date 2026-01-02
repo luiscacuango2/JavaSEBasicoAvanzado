@@ -3,7 +3,9 @@ package com.anncode.amazonviewer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
+import com.anncode.amazonviewer.dao.MagazineDAO;
 import com.anncode.amazonviewer.dao.SerieDAO;
 import com.anncode.amazonviewer.dao.UserDAO;
 import com.anncode.amazonviewer.model.*;
@@ -145,7 +147,7 @@ public class Main implements UserDAO {
 				Movie movieSelected = movies.get(response-1);
                 movieSelected.view();
 			}
-		} while(exit !=0);
+		} while (exit !=0);
 
 	}
 
@@ -246,7 +248,7 @@ public class Main implements UserDAO {
                     }
                 }
             }
-		} while(exit !=0);
+		} while (exit !=0);
 	}
 
     /**
@@ -281,42 +283,57 @@ public class Main implements UserDAO {
 			if(response > 0) {
 				Book bookSelected = books.get(response-1);
                 bookSelected.view();
+
+                System.out.println("\n----------------------------------------------");
+                System.out.println(" Has leído el libro : " + bookSelected.getTitle());
+                System.out.println("----------------------------------------------");
             }
 
-		}while(exit !=0);
+		} while (exit !=0);
 	}
 
     /**
      * Muestra el catálogo de revistas. No permite interacción de lectura
      * según las reglas de negocio establecidas.
      */
-	public static void showMagazines() {
-        /** Lista persistente de revistas cargadas en memoria */
+    public static void showMagazines() {
+        int exit = 0;
+        // Cargamos la lista real desde la DB una sola vez al entrar al menú
         magazines = Magazine.makeMagazineList();
 
-		int exit = 0;
-		do {
-			System.out.println();
-			System.out.println(":: MAGAZINES ::");
-			System.out.println();
+        do {
+            System.out.println("\n:: MAGAZINES ::");
 
-			for (int i = 0; i < magazines.size(); i++) { //1. Book 1
-				System.out.println(i+1 + ". " + magazines.get(i).getTitle());
-			}
+            // Listado dinámico
+            for (int i = 0; i < magazines.size(); i++) {
+                System.out.println((i + 1) + ". " + magazines.get(i).getTitle() +
+                        " [" + magazines.get(i).isReaded() + "]");
+            }
 
-			System.out.println("0. Regresar al Menu");
-			System.out.println();
+            System.out.println("0. Regresar al Menu");
+            System.out.println();
 
-			//Leer Respuesta usuario
-			int response = AmazonUtil.validateUserResponseMenu(0, 0);
+            // 1. CORRECCIÓN: El rango debe ser entre 0 y el tamaño de la lista
+            int response = AmazonUtil.validateUserResponseMenu(0, magazines.size());
 
-			if(response == 0) {
-				exit = 0;
-				showMenu();
-			}
+            if (response == 0) {
+                exit = 0;
+                showMenu();
+            }
 
-		}while(exit !=0);
-	}
+            if (response > 0) {
+                Magazine magazineSelected = magazines.get(response - 1);
+                magazineSelected.view();
+
+                System.out.println("\n----------------------------------------------");
+                System.out.println(" Has leído la revista: " + magazineSelected.getTitle());
+                System.out.println("----------------------------------------------");
+
+                exit = 1;
+            }
+
+        } while (exit != 0);
+    }
 
     /**
      * Genera un reporte general de todos los elementos marcados como vistos o leídos.
@@ -328,12 +345,11 @@ public class Main implements UserDAO {
 		report.setNameFile("reporte");
 		report.setExtension("txt");
 		report.setTitle(":: VISTOS ::");
-		String contentReport = "";
+		String contentReport = "REPORTE GENERAL\n";;
 
 		for (Movie movie : movies) {
 			if (movie.getIsViewed()) {
 				contentReport += movie.toString() + "\n";
-
 			}
 		}
 
@@ -342,7 +358,6 @@ public class Main implements UserDAO {
 			for (Chapter chapter : chapters) {
 				if (chapter.getIsViewed()) {
 					contentReport += chapter.toString() + "\n";
-
 				}
 			}
 		}
@@ -350,7 +365,6 @@ public class Main implements UserDAO {
 		for (Book book : books) {
 			if (book.getIsReaded()) {
 				contentReport += book.toString() + "\n";
-
 			}
 		}
 
@@ -367,7 +381,7 @@ public class Main implements UserDAO {
      * @param date Objeto {@link Date} con la fecha para el reporte.
      */
 	public static void makeReport(Date date) {
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-h-m-s-S");
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-h-m-s");
 		String dateString = df.format(date);
 		Report report = new Report();
 
@@ -375,15 +389,16 @@ public class Main implements UserDAO {
 		report.setExtension("txt");
 		report.setTitle(":: VISTOS ::");
 
+        Locale spanishLocale = new Locale("es", "ES");
+        SimpleDateFormat dfNameDays = new SimpleDateFormat("EEEE d 'de' MMMM 'de' yyyy", spanishLocale);
 
-		SimpleDateFormat dfNameDays = new SimpleDateFormat("E, W MMM Y");
+//		SimpleDateFormat dfNameDays = new SimpleDateFormat("day dd 'de' MMMM 'de' yyyy");
 		dateString = dfNameDays.format(date);
-		String contentReport = "Date: " + dateString + "\n\n\n";
+		String contentReport = "Fecha: " + dateString + "\n\n";
 
 		for (Movie movie : movies) {
 			if (movie.getIsViewed()) {
 				contentReport += movie.toString() + "\n";
-
 			}
 		}
 
@@ -392,7 +407,6 @@ public class Main implements UserDAO {
 			for (Chapter chapter : chapters) {
 				if (chapter.getIsViewed()) {
 					contentReport += chapter.toString() + "\n";
-
 				}
 			}
 		}
@@ -400,7 +414,6 @@ public class Main implements UserDAO {
 		for (Book book : books) {
 			if (book.getIsReaded()) {
 				contentReport += book.toString() + "\n";
-
 			}
 		}
 		report.setContent(contentReport);
@@ -409,5 +422,4 @@ public class Main implements UserDAO {
 		System.out.println("Reporte Generado");
 		System.out.println();
 	}
-
 }

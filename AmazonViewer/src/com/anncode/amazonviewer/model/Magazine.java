@@ -1,5 +1,8 @@
 package com.anncode.amazonviewer.model;
 
+import com.anncode.amazonviewer.dao.MagazineDAO;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -15,7 +18,7 @@ import java.util.Date;
  * @version 1.2
  * @since 2025-12-31
  */
-public class Magazine extends Publication {
+public class Magazine extends Publication implements MagazineDAO {
 
     /** Identificador único de la revista */
     private int id;
@@ -55,11 +58,27 @@ public class Magazine extends Publication {
      */
     @Override
     public String toString() {
-        return "\n :: MAGAZINE ::" +
-                "\n Title: " + getTitle() +
-                "\n Editorial: " + getEditorial() +
-                "\n Authors: " + getAuthors() +  // Aquí se mostrarán los que insertamos vía SQL
-                "\n Edition Date: " + getEditionDate();
+        // Creamos el formato deseado: día/mes/año
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String dateFormated = sdf.format(getEditionDate());
+
+        String detailMagazine = "\n :: MAGAZINE ::" +
+                    "\n Title: " + getTitle() +
+                    "\n Editorial: " + getEditorial() +
+                    "\n Edition Date: " + dateFormated + // Usamos la fecha formateada
+                    "\n Authors: ";
+        // Obtenemos el arreglo de autores
+        String[] authors = getAuthors();
+
+        if (authors != null && authors.length > 0) {
+            for (int i = 0; i < authors.length; i++) {
+                // Añadimos el autor y una coma si no es el último
+                detailMagazine += authors[i] + (i < authors.length - 1 ? ", " : "");
+            }
+        } else {
+            detailMagazine += "Sin autores registrados";
+        }
+        return detailMagazine;
     }
 
     /**
@@ -71,16 +90,45 @@ public class Magazine extends Publication {
      * @return Un {@code ArrayList} con 5 ejemplares de {@link Magazine} inicializados.
      */
     public static ArrayList<Magazine> makeMagazineList() {
-        ArrayList<Magazine> magazines = new ArrayList();
-        String[] authors = new String[3];
-        for (int i = 0; i < 3; i++) {
-            authors[i] = "author "+i;
-        }
-        for (int i = 1; i <= 5; i++) {
-            magazines.add(new Magazine("Magazine " + i, new Date(), "Editorial " + i));
-        }
-
-        return magazines;
+        MagazineDAO magazineDAO = new MagazineDAO() {};
+        return magazineDAO.read();
     }
 
+    /**
+     * Método que simula la visualización de una revista.
+     * Al ejecutarse, muestra la ficha técnica y marca automáticamente
+     * la revista como leída en la Base de Datos.
+     */
+    public void view() {
+        // 1. Marcamos como leído en el objeto (Memoria)
+        setReaded(true);
+
+        // 2. Persistencia: Guardar en la tabla 'viewed' de MySQL
+        // Como Magazine implementa MagazineDAO, podemos llamar al método default
+        this.setMagazineRead(this);
+
+        // 3. Feedback visual para el usuario
+        System.out.println("\n==============================================");
+        System.out.println(" ABRIENDO REVISTA: " + getTitle().toUpperCase());
+        System.out.println("==============================================");
+
+        // Simulación de carga rápida
+        try {
+            System.out.print("Cargando contenido");
+            for (int i = 0; i < 3; i++) {
+                Thread.sleep(300);
+                System.out.print(".");
+            }
+            System.out.println("\n");
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        // 4. Mostrar la información técnica (toString corregido anteriormente)
+        System.out.println(this.toString());
+
+        System.out.println("\n----------------------------------------------");
+        System.out.println(" La revista ha sido marcada como leída.");
+        System.out.println("----------------------------------------------\n");
+    }
 }

@@ -57,7 +57,6 @@ public interface MovieDAO extends IDBConnection {
              ResultSet rs = preparedStatement.executeQuery()) {
 
             while (rs.next()) {
-                System.out.println(">>> DEBUG: Película encontrada: " + rs.getString(TMovie.TITLE));
                 Movie movie = new Movie(
                         rs.getString(TMovie.TITLE),
                         rs.getString(TMovie.GENRE),

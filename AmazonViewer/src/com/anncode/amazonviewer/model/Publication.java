@@ -92,7 +92,7 @@ public class Publication {
      */
     public String[] getAuthors() {
         if (authors != null && !authors.isEmpty()) {
-            return authors.split(","); // Divide por comas
+            return authors.split(","); // Si en la DB están separados por comas, los divide
         }
         return new String[0];
     }

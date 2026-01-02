@@ -147,11 +147,11 @@ public class Movie extends Film implements IVisualizable, MovieDAO {
             for (int j = 0; j < totalPasos; j++) {
                 bar.append((j < i) ? "=" : " ");
             }
-            bar.append("] ").append(i * 100 / totalPasos).append("%");
+            bar.append("] ").append(i * 50 / totalPasos).append("%");
             System.out.print("\r" + bar.toString());
 
             try {
-                Thread.sleep(100);
+                Thread.sleep(50);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }

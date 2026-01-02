@@ -23,7 +23,7 @@ public interface IDBConnection {
 
             if (connection != null && !connection.isClosed()) {
                 // Usamos un mensaje más discreto o logs
-                System.out.println(">>> Conexión exitosa a: " + DB_NAME);
+//                System.out.println(">>> Conexión exitosa a: " + DB_NAME);
             }
             return connection;
 
