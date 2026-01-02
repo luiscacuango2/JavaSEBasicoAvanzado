@@ -3,6 +3,7 @@ package com.anncode.amazonviewer.model;
 import java.util.Date;
 
 /**
+ * <2>IVisualizable</h2>
  * Esta interfaz define el contrato de comportamiento para los objetos 
  * que pueden ser visualizados dentro de Amazon Viewer.
  * <p>

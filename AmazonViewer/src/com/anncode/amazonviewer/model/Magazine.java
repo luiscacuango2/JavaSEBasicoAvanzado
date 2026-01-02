@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
+ * <h2>Magazine</h2>
  * Representa las publicaciones periódicas o revistas dentro de la aplicación.
  * <p>
  * Al heredar de {@link Publication}, comparte atributos como título, fecha de edición
@@ -35,6 +36,14 @@ public class Magazine extends Publication {
      */
     public int getId() {
         return id;
+    }
+
+    /**
+     * Define el identificador único de la revista.
+     * @param id El identificador a asignar.
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 
     /**

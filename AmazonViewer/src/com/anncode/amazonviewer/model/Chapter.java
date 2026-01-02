@@ -1,5 +1,10 @@
 package com.anncode.amazonviewer.model;
 
+import com.anncode.amazonviewer.dao.ChapterDAO;
+import com.anncode.amazonviewer.dao.SerieDAO;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -14,9 +19,8 @@ import java.util.ArrayList;
  * @version 1.2
  * @since 2025-12-31
  */
-public class Chapter extends Movie {
+public class Chapter extends Movie implements ChapterDAO {
 
-	private int id;
 	private int sessionNumber;
 	private Serie serie;
 
@@ -35,20 +39,6 @@ public class Chapter extends Movie {
 		// TODO Auto-generated constructor stub
 		this.setSessionNumber(sessionNumber);
 		this.setSerie(serie);
-	}
-
-    /**
-     * Obtiene el identificador único del capítulo.
-     * <p>
-     * Sobrescribe el método de {@link Movie} para devolver el ID específico
-     * asignado durante la instancia de la serie.
-     * </p>
-     * @return {@code int} con el identificador único.
-     */
-	@Override
-	public int getId() {
-		// TODO Auto-generated method stub
-		return this.id;
 	}
 
 	public int getSessionNumber() {
@@ -82,17 +72,16 @@ public class Chapter extends Movie {
 				"\n Creator: " + getCreator() +
 				"\n Duration: " + getDuration();
 	}
-	
-	
-	public static ArrayList<Chapter> makeChaptersList(Serie serie) {
-		ArrayList<Chapter> chapters = new ArrayList();
-		
-		for (int i = 1; i <= 5; i++) {
-			chapters.add(new Chapter("Capituo "+i, "genero "+i, "creator" +i, 45, (short)(2017+i), i, serie));
-		}
-		
-		return chapters;
-	}
+
+    /**
+     * Obtiene los capítulos de la DB.
+     * @param serie Serie.
+     * @return ArrayList<Chapter> con los capítulos de la serie dada.
+     */
+    public static ArrayList<Chapter> makeChaptersList(Serie serie) {
+        ChapterDAO chapterDAO = new ChapterDAO() {};
+        return chapterDAO.read(serie.getId()); // Lee los capítulos asociados al ID de la serie
+    }
 
     /**
      * {@inheritDoc}
@@ -104,17 +93,31 @@ public class Chapter extends Movie {
      */
     @Override
     public void view() {
-        super.view();
+        super.view(); // Marca el capítulo como visto en DB
+
         ArrayList<Chapter> chapters = getSerie().getChapters();
         int chapterViewedCounter = 0;
-        for (Chapter chapter : chapters) {
-            if (chapter.getIsViewed()) {
-                chapterViewedCounter++;
+
+        if (chapters != null) {
+            for (Chapter chapter : chapters) {
+                if (chapter.getIsViewed()) {
+                    chapterViewedCounter++;
+                }
+            }
+
+            if (chapterViewedCounter == chapters.size()) {
+                // 1. Marcar en memoria
+                getSerie().setViewed(true);
+                // 2. Marcar en Base de Datos usando el DAO
+                SerieDAO serieDAO = new SerieDAO() {};
+                serieDAO.setSerieViewed(getSerie());
             }
         }
+    }
 
-        if (chapterViewedCounter == chapters.size()) {
-            getSerie().view();
-        }
+    @Override
+    public int getMaterialIdByName(String name, Connection conn) throws SQLException {
+        // Le indicamos que use la implementación de ChapterDAO (o MovieDAO, son idénticas)
+        return ChapterDAO.super.getMaterialIdByName(name, conn);
     }
 }

@@ -3,6 +3,7 @@ package com.anncode.amazonviewer.model;
 import java.util.Date;
 
 /**
+ * <h2>Publication</h2>
  * Clase base para todas las publicaciones impresas o digitales.
  * <p>
  * Agrupa atributos comunes como título, fecha de edición y editorial.
@@ -21,6 +22,8 @@ public class Publication {
     private String editorial;
     /** Listado de nombres de los autores de la publicación */
     private String[] authors;
+    /** Estado de visualización de la publicación */
+    private boolean readed;
 
     /**
      * Constructor para inicializar los datos generales de una publicación.
@@ -97,5 +100,29 @@ public class Publication {
      */
     public void setAuthors(String[] authors) {
         this.authors = authors;
+    }
+
+    /**
+     * Devuelve una cadena de texto indicando si la publicación fue leído.
+     * @return "Sí" si fue leído, "No" en caso contrario.
+     */
+    public String isReaded() {
+        return readed ? "Sí" : "No";
+    }
+
+    /**
+     * Recupera si la publicación ha sido leído.
+     * @return {@code true} si la publicación ha sido leído.
+     * */
+    public boolean getIsReaded() {
+        return readed;
+    }
+
+    /**
+     * Define el estado de visualización de la publicación.
+     * @param readed El estado a establecer.
+     */
+    public void setReaded(boolean readed) {
+        this.readed = readed;
     }
 }

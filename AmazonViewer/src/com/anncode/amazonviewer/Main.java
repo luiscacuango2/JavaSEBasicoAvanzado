@@ -4,12 +4,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.anncode.amazonviewer.dao.SerieDAO;
 import com.anncode.amazonviewer.dao.UserDAO;
 import com.anncode.amazonviewer.model.*;
 import com.anncode.makereport.Report;
 import com.anncode.util.AmazonUtil;
 
 /**
+ * <h2>AmazonViewer</h2>
  * AmazonViewer es el punto de entrada de la aplicación que permite gestionar la
  * visualización de contenido multimedia: Películas, Series, Libros y Revistas.
  * <p>
@@ -27,7 +29,11 @@ import com.anncode.util.AmazonUtil;
 public class Main implements UserDAO {
     // Sesión global del usuario
     public static User activeUser;
-
+    static ArrayList<Movie> movies = new ArrayList<>();;
+    static ArrayList<Serie> series = new ArrayList<>();
+    static ArrayList<Chapter> chapters = new ArrayList<>();
+    static ArrayList<Book> books = new ArrayList<>();
+    static ArrayList<Magazine> magazines = new ArrayList<>();
     /**
      * Método principal que inicia la ejecución del programa.
      * @param args Argumentos de línea de comandos (no utilizados).
@@ -39,22 +45,14 @@ public class Main implements UserDAO {
         // Si "Luigi" existe, trae su ID. Si no, lo crea y nos da el nuevo ID.
         activeUser = app.login("Luigi");
 
+        // Esto evitará que los mensajes de conexión se repitan infinitamente
+        movies = Movie.makeMoviesList();
+        series = Serie.makeSeriesList();
+        books = Book.makeBookList();
+        magazines = Magazine.makeMagazineList();
+
         showMenu();
 	}
-
-    public class AmazonViewer {
-        // Variable global que representa al usuario que usa la app
-        public static User USER_SESSION;
-
-        public static void main(String[] args) {
-            // Al iniciar, cargamos el usuario desde la DB
-            USER_SESSION = new UserDAO(){}.login("Luigi");
-
-            // Ahora, cada vez que se llame a setMovieViewed,
-            // usará USER_SESSION.getId() automáticamente.
-            showMenu();
-        }
-    }
 
     /**
      * Despliega el menú principal en consola y gestiona la navegación
@@ -115,14 +113,13 @@ public class Main implements UserDAO {
 		} while(exit != 0);
 	}
 
-    /** Lista persistente de películas cargadas en memoria */
-	static ArrayList<Movie> movies = new ArrayList<>();
-
     /**
      * Gestiona el submenú de películas, permitiendo seleccionar una para su visualización.
      */
 	public static void showMovies() {
-        movies = Movie.makeMoviesList();
+        /** Lista persistente de películas cargadas en memoria */
+//        movies = Movie.makeMoviesList();
+
 		int exit = 1;
 
 		do {
@@ -143,7 +140,6 @@ public class Main implements UserDAO {
 			if(response == 0) {
 				exit = 0;
 				showMenu();
-				break;
 			}
 			if (response > 0) {
 				Movie movieSelected = movies.get(response-1);
@@ -153,13 +149,13 @@ public class Main implements UserDAO {
 
 	}
 
-    /** Lista persistente de series cargadas en memoria */
-	static ArrayList<Serie> series = Serie.makeSeriesList();
-
     /**
      * Gestiona el submenú de series, permitiendo profundizar en los capítulos de cada una.
      */
 	public static void showSeries() {
+        /** Lista persistente de series cargadas en memoria */
+//        series = Serie.makeSeriesList();
+
 		int exit = 1;
 
 		do {
@@ -182,12 +178,27 @@ public class Main implements UserDAO {
 				showMenu();
 			}
 
-			if(response > 0) {
-				showChapters(series.get(response-1).getChapters());
-			}
+            if(response > 0) {
+                Serie serieSeleccionada = series.get(response-1);
 
+                // 1. Mostramos los capítulos
+                showChapters(serieSeleccionada.getChapters());
 
-		}while(exit !=0);
+                // 2. RE-VERIFICACIÓN MANUAL:
+                // Al regresar de los capítulos, comprobamos si todos están vistos
+                int contadorVistos = 0;
+                for (Chapter c : serieSeleccionada.getChapters()) {
+                    if (c.getIsViewed()) contadorVistos++;
+                }
+
+                // 3. Si todos están vistos, marcamos la serie en la lista de Main
+                if (contadorVistos == serieSeleccionada.getChapters().size() && contadorVistos > 0) {
+                    serieSeleccionada.setViewed(true);
+                    // Opcional: Llamar al DAO aquí si quieres asegurar persistencia inmediata
+                    new SerieDAO(){}.setSerieViewed(serieSeleccionada);
+                }
+            }
+		} while(exit !=0);
 	}
 
     /**
@@ -195,6 +206,9 @@ public class Main implements UserDAO {
      * @param chaptersOfSerieSelected Lista de capítulos pertenecientes a la serie elegida.
      */
 	public static void showChapters(ArrayList<Chapter> chaptersOfSerieSelected) {
+        /** Lista persistente de capítulos cargados en memoria */
+        chapters = chaptersOfSerieSelected;
+
 		int exit = 1;
 
 		do {
@@ -214,22 +228,34 @@ public class Main implements UserDAO {
 
 			if(response == 0) {
 				exit = 0;
+                showSeries();
 			}
 
-			if(response > 0) {
-				Chapter chapterSelected = chaptersOfSerieSelected.get(response-1);
-				chapterSelected.view();
-			}
-		}while(exit !=0);
+            if(response > 0) {
+                Chapter chapterSelected = chaptersOfSerieSelected.get(response-1);
+                chapterSelected.view();
+
+                // Después de ver un capítulo, verificamos si la serie padre
+                // ahora está vista y actualizamos nuestra lista global.
+                if (Boolean.parseBoolean(chapterSelected.getSerie().isViewed())) {
+                    // Buscamos la serie en nuestra lista estática y la actualizamos
+                    for (Serie s : series) {
+                        if (s.getId() == chapterSelected.getSerie().getId()) {
+                            s.setViewed(true);
+                        }
+                    }
+                }
+            }
+		} while(exit !=0);
 	}
-
-    /** Lista persistente de libros cargados en memoria */
-	static ArrayList<Book> books= Book.makeBookList();
 
     /**
      * Gestiona el submenú de libros, permitiendo seleccionar uno para su lectura.
      */
 	public static void showBooks() {
+        /** Lista persistente de libros cargados en memoria */
+        books = Book.makeBookList();
+
 		int exit = 1;
 
 		do {
@@ -265,7 +291,9 @@ public class Main implements UserDAO {
      * según las reglas de negocio establecidas.
      */
 	public static void showMagazines() {
-		 ArrayList<Magazine> magazines = Magazine.makeMagazineList();
+        /** Lista persistente de revistas cargadas en memoria */
+        magazines = Magazine.makeMagazineList();
+
 		int exit = 0;
 		do {
 			System.out.println();
@@ -383,18 +411,3 @@ public class Main implements UserDAO {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -4,38 +4,11 @@ import com.anncode.amazonviewer.Main;
 import com.anncode.amazonviewer.db.IDBConnection;
 import com.anncode.amazonviewer.db.DataBase.*; // Importamos nuestras constantes
 import com.anncode.amazonviewer.model.Movie;
-import com.anncode.amazonviewer.model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
 
 public interface MovieDAO extends IDBConnection {
-
-    /**
-     * Busca un usuario en la base de datos por su nombre.
-     * @param name Nombre del usuario a buscar.
-     * @return Objeto User con su ID de la base de datos.
-     */
-    default User getUserByName(String name) {
-        User user = new User(name);
-        String query = "SELECT * FROM " + TUser.NAME +
-                " WHERE " + TUser.USERNAME + " = ?";
-
-        try (Connection connection = connectToDB();
-             PreparedStatement pstmt = connection.prepareStatement(query)) {
-
-            pstmt.setString(1, name);
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                user.setId(rs.getInt(TUser.ID));
-            }
-
-        } catch (SQLException e) {
-            System.err.println("Error al obtener usuario: " + e.getMessage());
-        }
-        return user;
-    }
 
     /**
      * Registra en la base de datos que una película ha sido vista.
@@ -52,7 +25,7 @@ public interface MovieDAO extends IDBConnection {
 
         try (Connection connection = connectToDB()) {
             // OBTENCIÓN DINÁMICA DEL ID DE MATERIAL
-            int idMaterial = getMaterialIdByName("Movie", connection);
+            int idMaterial = getMaterialIdByName(MaterialNames.MOVIE, connection);
 
             try (PreparedStatement pstmt = connection.prepareStatement(query)) {
                 pstmt.setInt(1, idMaterial);            // ID Material Dinámico
@@ -69,24 +42,6 @@ public interface MovieDAO extends IDBConnection {
         return movie;
     }
 
-    /**
-     * Busca dinámicamente el ID de un material por su nombre en la tabla 'material'.
-     */
-    default int getMaterialIdByName(String materialName, Connection connection) throws SQLException {
-        int idMaterial = 0;
-        String query = "SELECT " + TMaterial.ID + " FROM " + TMaterial.NAME +
-                " WHERE " + TMaterial.NAME_COL + " = ?";
-
-        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
-            pstmt.setString(1, materialName);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    idMaterial = rs.getInt(TMaterial.ID);
-                }
-            }
-        }
-        return idMaterial;
-    }
 
     /**
      * Lee todas las películas de la base de datos y verifica si han sido vistas.
@@ -102,6 +57,7 @@ public interface MovieDAO extends IDBConnection {
              ResultSet rs = preparedStatement.executeQuery()) {
 
             while (rs.next()) {
+                System.out.println(">>> DEBUG: Película encontrada: " + rs.getString(TMovie.TITLE));
                 Movie movie = new Movie(
                         rs.getString(TMovie.TITLE),
                         rs.getString(TMovie.GENRE),
@@ -132,7 +88,7 @@ public interface MovieDAO extends IDBConnection {
                 " AND " + TViewed.ID_USER + " = ?";        // Dinámico
 
         try {
-            int idMaterial = getMaterialIdByName("Movie", connection);
+            int idMaterial = getMaterialIdByName(MaterialNames.MOVIE, connection);
 
             try (PreparedStatement pstmt = connection.prepareStatement(query)) {
                 pstmt.setInt(1, idMaterial);

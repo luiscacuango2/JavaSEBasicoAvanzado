@@ -1,8 +1,6 @@
 package com.anncode.amazonviewer.db;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 import static com.anncode.amazonviewer.db.DBConfig.*;
 
@@ -48,6 +46,19 @@ public interface IDBConnection {
                 }
             } catch (SQLException e) {
                 System.err.println("Error al intentar cerrar la conexión: " + e.getMessage());
+            }
+        }
+    }
+
+    /**
+     * Busca dinámicamente el ID de un material por su nombre en la tabla 'material'.
+     */
+    default int getMaterialIdByName(String name, Connection conn) throws SQLException {
+        String query = "SELECT id FROM material WHERE name = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, name);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                return rs.next() ? rs.getInt("id") : 0;
             }
         }
     }

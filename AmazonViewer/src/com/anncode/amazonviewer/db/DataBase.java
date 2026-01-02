@@ -6,6 +6,15 @@ package com.anncode.amazonviewer.db;
  */
 public class DataBase {
 
+    /** Constantes para ID de Material */
+    public static final class MaterialNames {
+        public static final String MOVIE    = "Movie";
+        public static final String SERIE    = "Serie";
+        public static final String CHAPTER  = "Chapter";
+        public static final String BOOK     = "Book";
+        public static final String MAGAZINE = "Magazine";
+    }
+
     /** Tabla de Películas */
     public static final class TMovie {
         public static final String NAME     = "movie";
@@ -28,7 +37,7 @@ public class DataBase {
     public static final class TViewed {
         public static final String NAME           = "viewed";
         public static final String ID             = "id";
-        public static final String ID_MATERIAL    = "id_material"; // Faltaba referencia al tipo de material
+        public static final String ID_MATERIAL    = "id_material"; // ID de la película/serie/libro
         public static final String ID_ELEMENT     = "id_element";  // ID de la película/capítulo/libro
         public static final String ID_USER        = "id_user";
         public static final String DATE           = "date";
@@ -56,10 +65,11 @@ public class DataBase {
         public static final String NAME     = "serie";
         public static final String ID       = "id";
         public static final String TITLE    = "title";
-        public static final String GENRE    = "genre";    // Campo faltante para consistencia
-        public static final String CREATOR  = "creator";  // Campo faltante para consistencia
+        public static final String GENRE    = "genre";
+        public static final String CREATOR  = "creator";
         public static final String DURATION = "duration"; // Duración promedio o total
         public static final String YEAR     = "year";
+        public static final String SESSION_QUANTITY  = "session_quantity";
     }
 
     /** Tabla de Capítulos de Series */
@@ -82,5 +92,14 @@ public class DataBase {
         public static final String EDITION_DATE = "edition_date";
         public static final String ISBN         = "isbn";
         public static final String AUTHORS      = "authors";
+    }
+
+    /** Tabla de Páginas de Libros */
+    public static final class TPage {
+        public static final String NAME     = "page";
+        public static final String ID       = "id";
+        public static final String NUMBER   = "number";
+        public static final String CONTENT  = "content";
+        public static final String ID_BOOK  = "id_book"; // Relación con el libro
     }
 }

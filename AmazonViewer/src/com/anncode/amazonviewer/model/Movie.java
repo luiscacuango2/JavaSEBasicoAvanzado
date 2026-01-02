@@ -116,8 +116,8 @@ public class Movie extends Film implements IVisualizable, MovieDAO {
      * @return Un {@code ArrayList} con objetos {@link Movie} para inicializar la aplicación.
      */
     public static ArrayList<Movie> makeMoviesList() {
-        Movie movie = new Movie();
-        return movie.read();
+        MovieDAO movieDAO = new MovieDAO() {};
+        return movieDAO.read();
     }
 
     /**

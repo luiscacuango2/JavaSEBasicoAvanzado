@@ -1,13 +1,12 @@
 package com.anncode.amazonviewer.model;
 
+import com.anncode.amazonviewer.dao.BookDAO;
 import com.anncode.util.AmazonUtil;
-
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.anncode.util.AmazonUtil;
-
 /**
+ * <h2>Book</h2>
  * Book es una clase que representa los libros en la aplicación.
  * <p>
  *  Hereda de {@link Publication} e implementa {@link IVisualizable} para
@@ -17,10 +16,9 @@ import com.anncode.util.AmazonUtil;
  * @version 1.2
  * @since 2025-12-31
  */
-public class Book extends Publication implements IVisualizable {
+public class Book extends Publication implements IVisualizable, BookDAO {
     private int id;
     private String isbn;
-    private boolean readed;
     private int timeReaded;
     private ArrayList<Page> pages;
 
@@ -39,44 +37,33 @@ public class Book extends Publication implements IVisualizable {
         this.pages = pages;
     }
 
-
+    /**
+     * Obtiene el identificador del libro.
+     * @return El identificador del libro.
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Define el identificador del libro.
+     * @param id El identificador a establecer.
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getIsbn() {
         return isbn;
     }
 
-
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
-    /**
-     * Devuelve una cadena de texto indicando si el libro fue leído.
-     *
-     * @return "Sí" si fue leído, "No" en caso contrario.
-     */
-    public String isReaded() {
-        return readed ? "Sí" : "No";
-    }
-
-
-    public void setReaded(boolean readed) {
-        this.readed = readed;
-    }
-
-    public boolean getIsReaded() {
-        return readed;
-    }
-
-
     public int getTimeReaded() {
         return timeReaded;
     }
-
 
     public void setTimeReaded(int timeReaded) {
         this.timeReaded = timeReaded;
@@ -182,7 +169,6 @@ public class Book extends Publication implements IVisualizable {
         System.out.println(" FINALIZASTE LA LECTURA DE: " + getTitle());
         System.out.println(" Tiempo total de lectura: " + getTimeReaded() + " milisegundos");
         System.out.println("**********************************************\n");
-
     }
 
     /**

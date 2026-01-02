@@ -1,8 +1,11 @@
 package com.anncode.amazonviewer.model;
 
+import com.anncode.amazonviewer.dao.SerieDAO;
+
 import java.util.ArrayList;
 
 /**
+ * <h2>Serie</h2>
  * Representa una serie de televisión dentro de Amazon Viewer.
  * <p>
  * Una serie es una extensión de {@link Film} que se caracteriza por poseer
@@ -21,6 +24,9 @@ public class Serie extends Film {
     /** Listado de capítulos que componen la serie */
     private ArrayList<Chapter> chapters;
 
+    public Serie() {
+        // Constructor vacío para permitir instanciación simple en DAOs
+    }
 
     /**
      * Constructor para inicializar una Serie con sus datos básicos.
@@ -41,6 +47,14 @@ public class Serie extends Film {
      */
     public int getId() {
         return id;
+    }
+
+    /**
+     * Define el identificador único de la serie.
+     * @param id El identificador a asignar.
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 
     /**
@@ -100,12 +114,14 @@ public class Serie extends Film {
      * @return Un {@code ArrayList} de objetos {@link Serie} con sus respectivos capítulos cargados.
      */
     public static ArrayList<Serie> makeSeriesList() {
-        ArrayList<Serie> series = new ArrayList<>();
+        SerieDAO serieDAO = new SerieDAO() {};
+        ArrayList<Serie> series = serieDAO.read(); // Carga las series desde la DB
 
-        for (int i = 1; i <= 5; i++) {
-            Serie serie = new Serie("Serie "+i, "genero "+i, "creador "+i, 1200, 5);
-            serie.setChapters(Chapter.makeChaptersList(serie));
-            series.add(serie);
+        for (Serie serie : series) {
+            // Obtenemos los capítulos de la DB
+            ArrayList<Chapter> chapters = Chapter.makeChaptersList(serie);
+            // LOS ASIGNAMOS A LA SERIE ACTUAL
+            serie.setChapters(chapters);
         }
 
         return series;
