@@ -55,15 +55,11 @@ public class Magazine extends Publication {
      */
     @Override
     public String toString() {
-        String detailMagazine = "\n :: MAGAZINE ::" +
+        return "\n :: MAGAZINE ::" +
                 "\n Title: " + getTitle() +
                 "\n Editorial: " + getEditorial() +
-                "\n Edition Date: " + getEdititionDate() +
-                "\n Authors: ";
-        for (int i = 0; i < getAuthors().length; i++) {
-            detailMagazine += "\t" + getAuthors()[i] + " ";
-        }
-        return  detailMagazine;
+                "\n Authors: " + getAuthors() +  // Aquí se mostrarán los que insertamos vía SQL
+                "\n Edition Date: " + getEditionDate();
     }
 
     /**

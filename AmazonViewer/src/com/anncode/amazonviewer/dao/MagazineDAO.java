@@ -18,27 +18,20 @@ public interface MagazineDAO extends IDBConnection {
      */
     default Magazine setMagazineRead(Magazine magazine) {
         String query = "INSERT INTO " + TViewed.NAME +
-                " (" + TViewed.ID_MATERIAL + ", " +
-                TViewed.ID_ELEMENT + ", " +
-                TViewed.ID_USER + ", " +
-                TViewed.DATE + ") " +
+                " (" + TViewed.ID_MATERIAL + ", " + TViewed.ID_ELEMENT + ", " + TViewed.ID_USER + ", " + TViewed.DATE + ") " +
                 " VALUES (?, ?, ?, ?)";
 
         try (Connection connection = connectToDB()) {
-            // Obtenemos el ID del material "Magazine" dinámicamente
             int idMaterial = getMaterialIdByName("Magazine", connection);
 
             try (PreparedStatement pstmt = connection.prepareStatement(query)) {
-                pstmt.setInt(1, idMaterial);            // ID Material Dinámico
-                pstmt.setInt(2, magazine.getId());      // ID Revista Dinámico
-                pstmt.setInt(3, Main.activeUser.getId()); // ID Usuario de la sesión actual
+                pstmt.setInt(1, idMaterial);
+                pstmt.setInt(2, magazine.getId());
+                pstmt.setInt(3, Main.activeUser.getId());
                 pstmt.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
-
                 pstmt.executeUpdate();
 
-                // Actualizamos el estado en el objeto (usando el método del modelo)
-                magazine.setReaded(true);
-
+                // magazine.setReaded(true); // Solo si tu modelo Magazine tiene este atributo
             }
         } catch (SQLException e) {
             System.err.println("Error al marcar la revista como leída: " + e.getMessage());
@@ -71,31 +64,27 @@ public interface MagazineDAO extends IDBConnection {
         try (Connection connection = connectToDB();
              PreparedStatement pstmt = connection.prepareStatement(query);
              ResultSet rs = pstmt.executeQuery()) {
+
             while (rs.next()) {
-                // 1. Extraer datos de la base de datos
                 String title = rs.getString(TMagazine.TITLE);
                 String editorial = rs.getString(TMagazine.EDITORIAL);
 
-                // 2. CORRECCIÓN DE TIPO: Convertir java.sql.Date a java.util.Date
-                // El constructor requiere java.util.Date
+                // Conversión de fecha SQL a Util
                 java.util.Date editionDate = new java.util.Date(rs.getDate(TMagazine.EDITION_DATE).getTime());
 
-                // 3. LLAMADA AL CONSTRUCTOR (Solo 3 parámetros requeridos)
-                Magazine magazine = new Magazine(
-                        title,
-                        editionDate,
-                        editorial
-                );
+                Magazine magazine = new Magazine(title, editionDate, editorial);
 
-                // 4. SETTERS para el resto de la información dinámica
+                // ASIGNACIÓN DE ID Y AUTORES (La columna que agregamos en SQL)
                 magazine.setId(rs.getInt(TMagazine.ID));
-                magazine.setReaded(getMagazineRead(connection, magazine.getId()));
-                // Si necesitas guardar el ISBN o similar que no está en el constructor:
-                // magazine.setIsbn(rs.getString(TMagazine.ISBN));
+
+                // IMPORTANTE: Asegúrate de que tu clase Magazine tenga setAuthors()
+                magazine.setAuthors(rs.getString("authors"));
 
                 magazines.add(magazine);
             }
-        } catch (SQLException e) { e.printStackTrace(); }
+        } catch (SQLException e) {
+            System.err.println("Error al leer revistas: " + e.getMessage());
+        }
         return magazines;
     }
 

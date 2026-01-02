@@ -4,6 +4,8 @@ import com.anncode.amazonviewer.Main;
 import com.anncode.amazonviewer.db.IDBConnection;
 import com.anncode.amazonviewer.db.DataBase.*;
 import com.anncode.amazonviewer.model.Book;
+import com.anncode.amazonviewer.model.Page;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -14,31 +16,23 @@ public interface BookDAO extends IDBConnection {
      * @param book El libro leído.
      * @return El libro con su estado actualizado.
      */
-    default Book setBookRead(Book book) {
+    default void setBookRead(Book book) {
         String query = "INSERT INTO " + TViewed.NAME +
-                " (" + TViewed.ID_MATERIAL + ", " +
-                TViewed.ID_ELEMENT + ", " +
-                TViewed.ID_USER + ", " +
-                TViewed.DATE + ") " +
+                " (" + TViewed.ID_MATERIAL + ", " + TViewed.ID_ELEMENT + ", " + TViewed.ID_USER + ", " + TViewed.DATE + ") " +
                 " VALUES (?, ?, ?, ?)";
-
         try (Connection connection = connectToDB()) {
             int idMaterial = getMaterialIdByName("Book", connection);
 
             try (PreparedStatement pstmt = connection.prepareStatement(query)) {
                 pstmt.setInt(1, idMaterial);
                 pstmt.setInt(2, book.getId());
-                pstmt.setInt(3, Main.activeUser.getId()); // ID Usuario Dinámico
+                pstmt.setInt(3, Main.activeUser.getId());
                 pstmt.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
-
                 pstmt.executeUpdate();
-                book.setReaded(true);
-
             }
         } catch (SQLException e) {
-            System.err.println("Error al marcar libro como leído: " + e.getMessage());
+            e.printStackTrace();
         }
-        return book;
     }
 
     /**
@@ -68,25 +62,22 @@ public interface BookDAO extends IDBConnection {
              ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
-                // 1. Convertimos la fecha de SQL a java.util.Date
                 java.util.Date editionDate = new java.util.Date(rs.getDate(TBook.EDITION_DATE).getTime());
 
-                // 2. Preparamos los campos que el constructor requiere (aunque estén vacíos por ahora)
-                String[] authors = new String[0]; // O podrías traerlos de otra tabla
-                ArrayList<Book.Page> pages = new ArrayList<>();
+                // CORRECCIÓN AQUÍ: Usamos Page, no Book.Page
+                ArrayList<Page> pages = new ArrayList<>();
 
-                // 3. Llamamos al constructor con los tipos correctos
                 Book book = new Book(
                         rs.getString(TBook.TITLE),
                         editionDate,
                         rs.getString(TBook.EDITORIAL),
-                        authors, // Requiere String[]
-                        pages    // Requiere ArrayList<Page>
+                        rs.getString(TBook.AUTHORS),
+                        pages
                 );
 
                 book.setId(rs.getInt(TBook.ID));
                 book.setIsbn(rs.getString(TBook.ISBN));
-                book.setReaded(getBookRead(connection, book.getId()));
+                book.setReaded(getIsBookRead(connection, book.getId()));
 
                 books.add(book);
             }
@@ -94,27 +85,54 @@ public interface BookDAO extends IDBConnection {
         return books;
     }
 
-    private boolean getBookRead(Connection connection, int idBook) throws SQLException {
-        boolean readed = false;
+    /**
+     * Lee las páginas de la tabla 'page' para un libro específico.
+     */
+    default ArrayList<Page> readPages(int idBook) {
+        ArrayList<Page> pages = new ArrayList<>();
+        String query = "SELECT * FROM page WHERE id_book = ?";
+
+        try (Connection connection = connectToDB();
+             PreparedStatement pstmt = connection.prepareStatement(query)) {
+
+            pstmt.setInt(1, idBook);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    // Usamos el constructor de la nueva clase Page.java
+                    Page page = new Page(
+                            rs.getInt("number"),
+                            rs.getString("content")
+                    );
+                    page.setId(rs.getInt("id"));
+                    pages.add(page);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return pages;
+    }
+
+    /**
+     * Verifica si el libro existe en la tabla viewed para el usuario actual.
+     */
+    private boolean getIsBookRead(Connection connection, int idBook) {
+        boolean read = false;
         String query = "SELECT * FROM " + TViewed.NAME +
-                " WHERE " + TViewed.ID_MATERIAL + " = ?" + // Dinámico
+                " WHERE " + TViewed.ID_MATERIAL + " = ?" +
                 " AND " + TViewed.ID_ELEMENT + " = ?" +
                 " AND " + TViewed.ID_USER + " = ?";
-
         try {
             int idMaterial = getMaterialIdByName("Book", connection);
-
             try (PreparedStatement pstmt = connection.prepareStatement(query)) {
                 pstmt.setInt(1, idMaterial);
                 pstmt.setInt(2, idBook);
-                pstmt.setInt(3, Main.activeUser.getId()); // Solo lo que el usuario actual vio
+                pstmt.setInt(3, Main.activeUser.getId());
                 try (ResultSet rs = pstmt.executeQuery()) {
-                    readed = rs.next();
+                    read = rs.next();
                 }
             }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            return readed;
+        } catch (SQLException e) { e.printStackTrace(); }
+        return read;
     }
 }

@@ -1,6 +1,7 @@
 package com.anncode.amazonviewer.model;
 
 import com.anncode.amazonviewer.dao.BookDAO;
+import com.anncode.amazonviewer.model.Page;
 import com.anncode.util.AmazonUtil;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,9 +29,9 @@ public class Book extends Publication implements IVisualizable, BookDAO {
      * @param title         Título del libro.
      * @param edititionDate Fecha de edición del libro.
      * @param editorial     Nombre del editorial del libro.
-     * @param authors       AArreglo de autores del libro.
+     * @param authors       Arreglo de autores del libro.
      */
-    public Book(String title, Date edititionDate, String editorial, String[] authors, ArrayList<Page> pages) {
+    public Book(String title, Date edititionDate, String editorial, String authors, ArrayList<Page> pages) {
         super(title, edititionDate, editorial);
         // TODO Auto-generated constructor stub
         setAuthors(authors);
@@ -89,16 +90,11 @@ public class Book extends Publication implements IVisualizable, BookDAO {
      */
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
-        String detailBook = "\n :: BOOK ::" +
+        return "\n :: BOOK ::" +
                 "\n Title: " + getTitle() +
                 "\n Editorial: " + getEditorial() +
-                "\n Edition Date: " + getEdititionDate() +
-                "\n Authors: ";
-        for (int i = 0; i < getAuthors().length; i++) {
-            detailBook += "\t" + getAuthors()[i] + " ";
-        }
-        return detailBook;
+                "\n Edition Date: " + getEditionDate() +
+                "\n Authors: " + getAuthors();
     }
 
     /**
@@ -176,59 +172,26 @@ public class Book extends Publication implements IVisualizable, BookDAO {
      * @return Un {@code ArrayList} de objetos {@link Book}.
      */
     public static ArrayList<Book> makeBookList() {
-        ArrayList<Book> books = new ArrayList();
-        String[] authors = new String[3];
-        for (int i = 0; i < 3; i++) {
-            authors[i] = "author " + i;
-        }
+        BookDAO bookDAO = new BookDAO() {};
+        ArrayList<Book> books = bookDAO.read();
 
-        ArrayList<Page> pages = new ArrayList();
-        int pagina = 0;
-        for (int i = 0; i < 3; i++) {
-            pagina = i + 1;
-            pages.add(new Book.Page(pagina, "El contenido de la página " + pagina));
-        }
+        for (Book book : books) {
+            // Aquí ya no habrá conflicto de tipos
+            ArrayList<Page> pagesFromDB = bookDAO.readPages(book.getId());
 
-        for (int i = 1; i <= 5; i++) {
-            books.add(new Book("Book " + i, new Date(), "editorial " + i, authors, pages));
+            if (pagesFromDB.isEmpty()) {
+                pagesFromDB.add(new Page(1, "Sin contenido en DB."));
+            }
+            book.setPages(pagesFromDB);
         }
-
         return books;
-
     }
 
-    public static class Page {
-        private int id;
-        private int number;
-        private String content;
-
-        public Page(int number, String content) {
-            this.number = number;
-            this.content = content;
+    private static ArrayList<Page> makePagesList() {
+        ArrayList<Page> pages = new ArrayList<>();
+        for (int i = 1; i <= 3; i++) {
+            pages.add(new Page(i, "Contenido de la página " + i + "..."));
         }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public int getNumber() {
-            return number;
-        }
-
-        public void setNumber(int number) {
-            this.number = number;
-        }
-
-        public String getContent() {
-            return content;
-        }
-
-        public void setContent(String content) {
-            this.content = content;
-        }
+        return pages;
     }
 }

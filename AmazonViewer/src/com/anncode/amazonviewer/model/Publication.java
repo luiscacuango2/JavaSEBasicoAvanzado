@@ -17,24 +17,24 @@ public class Publication {
     /** Título de la publicación */
     private String title;
     /** Fecha en la que se realizó la edición */
-    private Date edititionDate;
+    private Date editionDate;
     /** Nombre de la empresa editorial */
     private String editorial;
     /** Listado de nombres de los autores de la publicación */
-    private String[] authors;
+    private String authors;
     /** Estado de visualización de la publicación */
     private boolean readed;
 
     /**
      * Constructor para inicializar los datos generales de una publicación.
      * @param title Título de la obra.
-     * @param edititionDate Fecha de publicación o edición.
+     * @param editionDate Fecha de publicación o edición.
      * @param editorial Nombre de la editorial encargada.
      */
-    public Publication(String title, Date edititionDate, String editorial) {
+    public Publication(String title, Date editionDate, String editorial) {
         super();
         this.title = title;
-        this.edititionDate = edititionDate;
+        this.editionDate = editionDate;
         this.editorial = editorial;
     }
 
@@ -58,16 +58,16 @@ public class Publication {
      * Recupera la fecha de edición de la obra.
      * @return El objeto {@code Date} con la fecha de edición.
      */
-    public Date getEdititionDate() {
-        return edititionDate;
+    public Date getEditionDate() {
+        return editionDate;
     }
 
     /**
      * Define la fecha de edición de la obra.
-     * @param edititionDate La fecha de edición a establecer.
+     * @param editionDate La fecha de edición a establecer.
      */
-    public void setEdititionDate(Date edititionDate) {
-        this.edititionDate = edititionDate;
+    public void setEditionDate(Date editionDate) {
+        this.editionDate = editionDate;
     }
 
     /**
@@ -91,14 +91,17 @@ public class Publication {
      * @return Un arreglo de {@code String} con los nombres de los autores.
      */
     public String[] getAuthors() {
-        return authors;
+        if (authors != null && !authors.isEmpty()) {
+            return authors.split(","); // Divide por comas
+        }
+        return new String[0];
     }
 
     /**
      * Establece los autores de la publicación.
      * @param authors Un arreglo de {@code String} que contiene los autores.
      */
-    public void setAuthors(String[] authors) {
+    public void setAuthors(String authors) {
         this.authors = authors;
     }
 
