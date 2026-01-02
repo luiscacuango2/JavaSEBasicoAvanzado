@@ -1,7 +1,6 @@
 package com.anncode.amazonviewer.model;
 
 import com.anncode.amazonviewer.dao.MovieDAO;
-
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -36,9 +35,7 @@ public class Movie extends Film implements IVisualizable, MovieDAO {
         setYear(year);
     }
 
-    public Movie() {
-
-    }
+    public Movie() { }
 
     /**
      * Obtiene el identificador único de la película.
@@ -132,32 +129,36 @@ public class Movie extends Film implements IVisualizable, MovieDAO {
      */
     @Override
     public void view() {
+        // 1. Marcamos como visto en memoria
         setViewed(true);
+
+        // 2. INSERT DINÁMICO: Llamamos al método de la interfaz MovieDAO
+        // pasándole 'this' (esta película específica con su ID de la DB)
+        this.setMovieViewed(this);
+
         Date dateI = startToSee(new Date());
 
         System.out.println("\nReproduciendo: " + getTitle());
 
-        // Simulación de barra de progreso (reemplaza el bucle de los puntos)
+        // Simulación de barra de progreso profesional
         int totalPasos = 20;
         for (int i = 0; i <= totalPasos; i++) {
-            String bar = "[";
+            StringBuilder bar = new StringBuilder("[");
             for (int j = 0; j < totalPasos; j++) {
-                bar += (j < i) ? "=" : " ";
+                bar.append((j < i) ? "=" : " ");
             }
-            bar += "] " + (i * 100 / totalPasos) + "%";
-
-            // \r mueve el cursor al inicio de la línea para sobrescribir
-            System.out.print("\r" + bar);
+            bar.append("] ").append(i * 100 / totalPasos).append("%");
+            System.out.print("\r" + bar.toString());
 
             try {
-                Thread.sleep(50); // Pausa de 50ms para que la barra se mueva
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
         }
 
         stopToSee(dateI, new Date());
-        System.out.println("\n\nVisualización finalizada.");
+        System.out.println("\nVisualización finalizada.");
         System.out.println(toString());
         System.out.println("Tiempo total: " + getTimeViewed() + " ms");
     }

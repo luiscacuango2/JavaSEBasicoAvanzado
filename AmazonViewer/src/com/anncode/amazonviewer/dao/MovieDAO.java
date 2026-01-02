@@ -1,14 +1,41 @@
 package com.anncode.amazonviewer.dao;
 
-import com.anncode.amazonviewer.db.DataBase;
+import com.anncode.amazonviewer.Main;
 import com.anncode.amazonviewer.db.IDBConnection;
 import com.anncode.amazonviewer.db.DataBase.*; // Importamos nuestras constantes
 import com.anncode.amazonviewer.model.Movie;
+import com.anncode.amazonviewer.model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
 
 public interface MovieDAO extends IDBConnection {
+
+    /**
+     * Busca un usuario en la base de datos por su nombre.
+     * @param name Nombre del usuario a buscar.
+     * @return Objeto User con su ID de la base de datos.
+     */
+    default User getUserByName(String name) {
+        User user = new User(name);
+        String query = "SELECT * FROM " + TUser.NAME +
+                " WHERE " + TUser.USERNAME + " = ?";
+
+        try (Connection connection = connectToDB();
+             PreparedStatement pstmt = connection.prepareStatement(query)) {
+
+            pstmt.setString(1, name);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                user.setId(rs.getInt(TUser.ID));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al obtener usuario: " + e.getMessage());
+        }
+        return user;
+    }
 
     /**
      * Registra en la base de datos que una película ha sido vista.
@@ -23,21 +50,42 @@ public interface MovieDAO extends IDBConnection {
                 TViewed.DATE + ") " +
                 " VALUES (?, ?, ?, ?)";
 
-        try (Connection connection = connectToDB();
-             PreparedStatement pstmt = connection.prepareStatement(query)) {
+        try (Connection connection = connectToDB()) {
+            // OBTENCIÓN DINÁMICA DEL ID DE MATERIAL
+            int idMaterial = getMaterialIdByName("Movie", connection);
 
-            pstmt.setInt(1, 1); // Supongamos que 1 es el ID para el material 'Movie'
-            pstmt.setInt(2, movie.getId());
-            pstmt.setInt(3, 1); // ID del usuario actual (por ahora estático)
-            pstmt.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
+            try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+                pstmt.setInt(1, idMaterial);            // ID Material Dinámico
+                pstmt.setInt(2, movie.getId());         // ID Elemento Dinámico
+                pstmt.setInt(3, Main.activeUser.getId()); // ID Usuario Dinámico
+                pstmt.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
 
-            pstmt.executeUpdate();
-            movie.setViewed(true);
-
+                pstmt.executeUpdate();
+                movie.setViewed(true);
+            }
         } catch (SQLException e) {
             System.err.println("Error al marcar película como vista: " + e.getMessage());
         }
         return movie;
+    }
+
+    /**
+     * Busca dinámicamente el ID de un material por su nombre en la tabla 'material'.
+     */
+    default int getMaterialIdByName(String materialName, Connection connection) throws SQLException {
+        int idMaterial = 0;
+        String query = "SELECT " + TMaterial.ID + " FROM " + TMaterial.NAME +
+                " WHERE " + TMaterial.NAME_COL + " = ?";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+            pstmt.setString(1, materialName);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    idMaterial = rs.getInt(TMaterial.ID);
+                }
+            }
+        }
+        return idMaterial;
     }
 
     /**
@@ -78,21 +126,25 @@ public interface MovieDAO extends IDBConnection {
      */
     private boolean getMovieViewed(Connection connection, int idMovie) {
         boolean viewed = false;
-        // Query mucho más robusta y legible
         String query = "SELECT * FROM " + TViewed.NAME +
-                " WHERE " + TViewed.ID_MATERIAL + " = ?" +
+                " WHERE " + TViewed.ID_MATERIAL + " = ?" + // Dinámico
                 " AND " + TViewed.ID_ELEMENT + " = ?" +
-                " AND " + TViewed.ID_USER + " = ?";
+                " AND " + TViewed.ID_USER + " = ?";        // Dinámico
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, 1);
-            preparedStatement.setInt(2, idMovie);
-            preparedStatement.setInt(3, 1);
-            try (ResultSet rs = preparedStatement.executeQuery()) {
-                viewed = rs.next();
+        try {
+            int idMaterial = getMaterialIdByName("Movie", connection);
+
+            try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+                pstmt.setInt(1, idMaterial);
+                pstmt.setInt(2, idMovie);
+                pstmt.setInt(3, Main.activeUser.getId()); // Solo lo que el usuario actual vio
+
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    viewed = rs.next();
+                }
             }
         } catch (SQLException e) {
-            System.err.println("Error al verificar estado 'visto': " + e.getMessage());
+            e.printStackTrace();
         }
         return viewed;
     }

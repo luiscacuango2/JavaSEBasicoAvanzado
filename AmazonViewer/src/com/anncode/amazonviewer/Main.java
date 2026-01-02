@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.anncode.amazonviewer.dao.UserDAO;
 import com.anncode.amazonviewer.model.*;
 import com.anncode.makereport.Report;
 import com.anncode.util.AmazonUtil;
@@ -23,15 +24,38 @@ import com.anncode.util.AmazonUtil;
  * @version 1.2
  * @since 2025-12-31
  */
-public class Main {
+public class Main implements UserDAO {
+    // Sesión global del usuario
+    public static User activeUser;
+
     /**
      * Método principal que inicia la ejecución del programa.
      * @param args Argumentos de línea de comandos (no utilizados).
      */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		showMenu();
+        Main app = new Main();
+
+        // LOGIN DINÁMICO:
+        // Si "Luigi" existe, trae su ID. Si no, lo crea y nos da el nuevo ID.
+        activeUser = app.login("Luigi");
+
+        showMenu();
 	}
+
+    public class AmazonViewer {
+        // Variable global que representa al usuario que usa la app
+        public static User USER_SESSION;
+
+        public static void main(String[] args) {
+            // Al iniciar, cargamos el usuario desde la DB
+            USER_SESSION = new UserDAO(){}.login("Luigi");
+
+            // Ahora, cada vez que se llame a setMovieViewed,
+            // usará USER_SESSION.getId() automáticamente.
+            showMenu();
+        }
+    }
+
     /**
      * Despliega el menú principal en consola y gestiona la navegación
      * general del usuario mediante un switch-case.
@@ -88,18 +112,17 @@ public class Main {
 					exit = 1;
 					break;
 			}
-
-
-		}while(exit != 0);
+		} while(exit != 0);
 	}
 
     /** Lista persistente de películas cargadas en memoria */
-	static ArrayList<Movie> movies = Movie.makeMoviesList();
+	static ArrayList<Movie> movies = new ArrayList<>();
 
     /**
      * Gestiona el submenú de películas, permitiendo seleccionar una para su visualización.
      */
 	public static void showMovies() {
+        movies = Movie.makeMoviesList();
 		int exit = 1;
 
 		do {
@@ -126,9 +149,7 @@ public class Main {
 				Movie movieSelected = movies.get(response-1);
                 movieSelected.view();
 			}
-
-
-		}while(exit !=0);
+		} while(exit !=0);
 
 	}
 
