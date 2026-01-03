@@ -10,6 +10,19 @@ import com.anncode.amazonviewer.model.Serie;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * Interfaz que define las operaciones de persistencia para el objeto {@link Serie}.
+ * <p>
+ * Hereda de {@link IDBConnection} para la gestión de la conexión con la base de datos MySQL.
+ * Su función principal es recuperar la estructura de las series de televisión y
+ * coordinar con {@link ChapterDAO} la carga de sus episodios correspondientes,
+ * permitiendo una visualización íntegra del catálogo.
+ * </p>
+ *
+ * @author Luigi
+ * @version 1.3
+ * @since 2026-01-03
+ */
 public interface SerieDAO extends IDBConnection {
 
     /**

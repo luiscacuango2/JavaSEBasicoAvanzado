@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * <h2>Chapter</h2>
  * Es una clase que representa los capítulos individuales de una serie.
  * <p>
  * Hereda de {@link Movie} y contiene información específica sobre el número
@@ -44,10 +43,23 @@ public class Chapter extends Movie implements ChapterDAO {
 		this.setSerie(serie);
 	}
 
+    /**
+     * Obtiene el número de temporada o episodio del capítulo.
+     * @return Un {@code int} que representa la posición del capítulo
+     * dentro de la cronología de la serie.
+     */
 	public int getSessionNumber() {
 		return sessionNumber;
 	}
 
+    /**
+     * Asigna o actualiza el número de temporada o episodio del capítulo.
+     * <p>
+     * Este método es utilizado por la capa de datos (DAO) al momento de
+     * instanciar los capítulos recuperados de la base de datos.
+     * </p>
+     * @param sessionNumber El número secuencial que identifica al capítulo.
+     */
 	public void setSessionNumber(int sessionNumber) {
 		this.sessionNumber = sessionNumber;
 	}
@@ -71,18 +83,18 @@ public class Chapter extends Movie implements ChapterDAO {
 	@Override
 	public String toString() {
 		return  "\n :: SERIE ::" + 
-				"\n Title: " + getSerie().getTitle() +
-				"\n :: CHAPTER ::" + 
-				"\n Title: " + getTitle() +
-				"\n Year: " + getYear() + 
-				"\n Creator: " + getCreator() +
-				"\n Duration: " + getDuration();
+				"\n Título: " + getSerie().getTitle() +
+				"\n :: CAPÍTULO ::" +
+				"\n Título: " + getTitle() +
+				"\n Año: " + getYear() +
+				"\n Creador: " + getCreator() +
+				"\n Duración: " + getDuration();
 	}
 
     /**
      * Obtiene los capítulos de la DB.
      * @param serie Serie.
-     * @return ArrayList<Chapter> con los capítulos de la serie dada.
+     * @return {@code ArrayList<Chapter>} con los capítulos de la serie dada.
      */
     public static ArrayList<Chapter> makeChaptersList(Serie serie) {
         ChapterDAO chapterDAO = new ChapterDAO() {};

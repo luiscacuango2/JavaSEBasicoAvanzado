@@ -12,7 +12,7 @@ public interface IDBConnection {
     /**
      * Establece una conexión con MySQL.
      * Utiliza las constantes de {@link DBConfig}.
-     * * @return Una {@link Connection} activa.
+     * @return Una {@link Connection} activa.
      * @throws RuntimeException si la conexión no se puede establecer.
      */
     default Connection connectToDB() {
@@ -51,7 +51,18 @@ public interface IDBConnection {
     }
 
     /**
-     * Busca dinámicamente el ID de un material por su nombre en la tabla 'material'.
+     * Obtiene el identificador numérico de un tipo de material a partir de su nombre descriptivo.
+     * <p>
+     * Este método consulta la tabla {@code material} para encontrar el {@code id} asociado
+     * a una categoría específica (ej. "Movie", "Chapter", "Book"). Es una pieza auxiliar
+     * crítica para realizar inserciones y consultas precisas en la tabla de transacciones
+     * {@code viewed}, asegurando la integridad referencial.
+     * </p>
+     *
+     * @param name El nombre del material tal como está definido en {@link DataBase.MaterialNames}.
+     * @param conn La conexión activa a la base de datos para realizar la búsqueda.
+     * @return El {@code id} numérico correspondiente al material encontrado en la base de datos.
+     * @throws SQLException Si ocurre un error al ejecutar la consulta SQL.
      */
     default int getMaterialIdByName(String name, Connection conn) throws SQLException {
         String query = "SELECT id FROM material WHERE name = ?";

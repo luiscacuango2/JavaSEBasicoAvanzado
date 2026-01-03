@@ -10,10 +10,22 @@ import java.util.Scanner;
  * que el flujo del programa no se interrumpa por errores de tipo de dato.
  * </p>
  * @author Luigi
- * @version 1.2
+ * @version 1.3
  * @since 2025-12-31
  */
 public class AmazonUtil {
+
+    /**
+     * Constructor por defecto de la clase AmazonUtil.
+     * <p>
+     * Aunque esta clase está diseñada bajo el patrón de "Utility Class" (clase de utilidades)
+     * con métodos estáticos, este constructor permite la instanciación en caso de ser
+     * requerida por marcos de trabajo (frameworks) o para extender funcionalidades
+     * básicas de soporte en la aplicación.
+     * </p>
+     */
+    public AmazonUtil() {
+    }
 
     /**
      * Valida la respuesta del usuario para asegurar que sea un entero y que se

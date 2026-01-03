@@ -8,6 +8,18 @@ import com.anncode.amazonviewer.model.Movie;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * Interfaz que define las operaciones de persistencia para el objeto {@link Movie}.
+ * <p>
+ * Hereda de {@link IDBConnection} para facilitar el acceso a la base de datos MySQL.
+ * Su responsabilidad principal es gestionar la carga del catálogo de películas y
+ * coordinar el registro de visualización (estado "visto") mediante la interacción
+ * con la tabla de transacciones {@code viewed}.
+ * </p>
+ * @author Luigi
+ * @version 1.3
+ * @since 2026-01-03
+ */
 public interface MovieDAO extends IDBConnection {
 
     /**
@@ -76,8 +88,18 @@ public interface MovieDAO extends IDBConnection {
     }
 
     /**
-     * Consulta interna para verificar el estado de visualización en la DB.
-     * @return {@code true} si la película ha sido vista.
+     * Consulta interna para verificar el estado de visualización de una película en la base de datos.
+     * <p>
+     * Este método privado realiza una búsqueda en la tabla {@code viewed} filtrando por el
+     * identificador del material (tipo Película), el ID de la película específica y el ID
+     * del usuario activo. Permite determinar si existe una coincidencia que valide que
+     * el contenido ya fue consumido por el perfil actual.
+     * </p>
+     *
+     * @param connection La conexión activa a la base de datos proporcionada por el método {@code read()}.
+     * @param idMovie    El identificador único de la {@link Movie} que se desea verificar.
+     * @return {@code true} si existe un registro de visualización para este usuario y película;
+     * {@code false} en caso contrario o ante cualquier error de SQL.
      */
     private boolean getMovieViewed(Connection connection, int idMovie) {
         boolean viewed = false;

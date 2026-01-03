@@ -1,7 +1,6 @@
 package com.anncode.amazonviewer.model;
 
 /**
- * <h2>Film</h2>
  * Clase padre abstracta de la familia Films.
  * <p>
  * Esta clase es la base para todas las producciones. Como es abstracta
@@ -27,6 +26,16 @@ public abstract class Film {
     /** Estado de visualización del contenido */
     private boolean viewed;
 
+    /**
+     * Constructor por defecto de la clase abstracta Film.
+     * <p>
+     * Este constructor es invocado por las clases hijas durante su instanciación
+     * mediante la palabra reservada {@code super()}. Permite centralizar la
+     * lógica inicial de los atributos comunes como título, género, duración
+     * y año, asegurando que toda pieza de material visual comparta una
+     * estructura base consistente.
+     * </p>
+     */
     public Film() {}
 
     /**

@@ -14,8 +14,7 @@ import com.anncode.makereport.Report;
 import com.anncode.util.AmazonUtil;
 
 /**
- * <h2>AmazonViewer</h2>
- * AmazonViewer es el punto de entrada de la aplicación que permite gestionar la
+ * Main es el punto de entrada de la aplicación que permite gestionar la
  * visualización de contenido multimedia: Películas, Series, Libros y Revistas.
  * <p>
  * El programa ofrece una interfaz de consola para interactuar con el catálogo,
@@ -30,13 +29,26 @@ import com.anncode.util.AmazonUtil;
  * @since 2025-12-31
  */
 public class Main implements UserDAO {
-    // Sesión global del usuario
+    /** Lista persistente de usuarios cargados en memoria */
     public static User activeUser;
     static ArrayList<Movie> movies = new ArrayList<>();;
     static ArrayList<Serie> series = new ArrayList<>();
     static ArrayList<Chapter> chapters = new ArrayList<>();
     static ArrayList<Book> books = new ArrayList<>();
     static ArrayList<Magazine> magazines = new ArrayList<>();
+
+    /**
+     * Constructor por defecto de la clase Main.
+     * <p>
+     * En el contexto de AmazonViewer, este constructor inicializa los componentes
+     * básicos de la aplicación de consola. Se encarga de preparar la lógica de
+     * arranque antes de que el método {@code main} tome el control para desplegar
+     * la interfaz de usuario y gestionar la sesión del usuario activo.
+     * </p>
+     */
+    public Main() {
+    }
+
     /**
      * Método principal que inicia la ejecución del programa.
      * @param args Argumentos de línea de comandos (no utilizados).

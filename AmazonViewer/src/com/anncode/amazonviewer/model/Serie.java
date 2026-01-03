@@ -5,7 +5,6 @@ import com.anncode.amazonviewer.dao.SerieDAO;
 import java.util.ArrayList;
 
 /**
- * <h2>Serie</h2>
  * Representa una serie de televisión dentro de Amazon Viewer.
  * <p>
  * Una serie es una extensión de {@link Film} que se caracteriza por poseer
@@ -24,6 +23,15 @@ public class Serie extends Film {
     /** Listado de capítulos que componen la serie */
     private ArrayList<Chapter> chapters;
 
+    /**
+     * Constructor por defecto de la clase {@code Serie}.
+     * <p>
+     * Este constructor permite la instanciación de un objeto Serie sin parámetros iniciales.
+     * Es fundamental para la capa de acceso a datos ({@link SerieDAO}), permitiendo crear
+     * el contenedor de la serie antes de poblar sus atributos y su lista de
+     * {@code ArrayList<Chapter>} desde la base de datos.
+     * </p>
+     */
     public Serie() {
         // Constructor vacío para permitir instanciación simple en DAOs
     }
@@ -99,11 +107,11 @@ public class Serie extends Film {
     @Override
     public String toString() {
         return  "\n :: SERIE ::" +
-                "\n Title: " + getTitle() +
-                "\n Genero: " + getGenre() +
-                "\n Year: " + getYear() +
-                "\n Creator: " + getCreator() +
-                "\n Duration: " + getDuration();
+                "\n Título: " + getTitle() +
+                "\n Género: " + getGenre() +
+                "\n Año: " + getYear() +
+                "\n Creador: " + getCreator() +
+                "\n Duración: " + getDuration();
     }
 
     /**

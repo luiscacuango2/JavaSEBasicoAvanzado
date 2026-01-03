@@ -1,7 +1,6 @@
 package com.anncode.amazonviewer.model;
 
 import com.anncode.amazonviewer.dao.BookDAO;
-import com.anncode.amazonviewer.model.Page;
 import com.anncode.util.AmazonUtil;
 
 import java.text.SimpleDateFormat;
@@ -9,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * <h2>Book</h2>
  * Es una clase que representa los libros en la aplicación.
  * <p>
  *  Hereda de {@link Publication} e implementa {@link IVisualizable} para
@@ -32,10 +30,10 @@ public class Book extends Publication implements IVisualizable, BookDAO {
      * @param edititionDate Fecha de edición del libro.
      * @param editorial     Nombre del editorial del libro.
      * @param authors       Arreglo de autores del libro.
+     * @param pages         Lista de páginas del libro.
      */
     public Book(String title, Date edititionDate, String editorial, String authors, ArrayList<Page> pages) {
         super(title, edititionDate, editorial);
-        // TODO Auto-generated constructor stub
         setAuthors(authors);
         this.pages = pages;
     }
@@ -56,6 +54,15 @@ public class Book extends Publication implements IVisualizable, BookDAO {
         this.id = id;
     }
 
+    /**
+     * Obtiene el código ISBN (International Standard Book Number) del libro.
+     * <p>
+     * El ISBN es un identificador único de 10 o 13 dígitos que permite catalogar
+     * de manera precisa el título y la edición del material bibliográfico
+     * dentro de la plataforma.
+     * </p>
+     * @return Un {@code String} que contiene el código ISBN del libro.
+     */
     public String getIsbn() {
         return isbn;
     }
@@ -92,6 +99,18 @@ public class Book extends Publication implements IVisualizable, BookDAO {
         return pages;
     }
 
+    /**
+     * Asigna o actualiza la colección de páginas que conforman el libro.
+     * <p>
+     * Este método permite establecer la estructura de lectura del libro mediante
+     * una lista de objetos {@link Page}. Es utilizado principalmente durante
+     * el proceso de construcción del objeto o al recuperar el contenido
+     * detallado desde la fuente de datos.
+     * </p>
+     *
+     * @param pages Una {@link ArrayList} de objetos {@link Page} que representan
+     * el contenido textual y numerado del libro.
+     */
     public void setPages(ArrayList<Page> pages) {
         this.pages = pages;
     }

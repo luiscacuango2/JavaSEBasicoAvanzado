@@ -1,3 +1,5 @@
 com.anncode.amazonviewer
+com.anncode.amazonviewer.dao
+com.anncode.amazonviewer.db
 com.anncode.amazonviewer.model
 com.anncode.util

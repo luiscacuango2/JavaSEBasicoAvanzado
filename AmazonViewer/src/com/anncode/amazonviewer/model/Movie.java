@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * <h2>Movie</h2>
  * Representa una película dentro de la aplicación.
  * <p>
  * Esta clase extiende o hereda de {@link Film} las propiedades básicas de una producción
@@ -35,6 +34,15 @@ public class Movie extends Film implements IVisualizable, MovieDAO {
         setYear(year);
     }
 
+    /**
+     * Constructor por defecto de la clase Movie.
+     * <p>
+     * Crea una instancia de {@code Movie} sin inicializar sus atributos.
+     * Se utiliza principalmente en procesos de carga dinámica y cuando se
+     * requiere instanciar el objeto antes de asignar sus valores mediante
+     * los métodos {@code setter} o la recuperación desde la base de datos.
+     * </p>
+     */
     public Movie() { }
 
     /**

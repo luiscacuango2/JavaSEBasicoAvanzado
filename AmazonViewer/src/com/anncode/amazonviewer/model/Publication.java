@@ -3,7 +3,6 @@ package com.anncode.amazonviewer.model;
 import java.util.Date;
 
 /**
- * <h2>Publication</h2>
  * Clase base para todas las publicaciones impresas o digitales.
  * <p>
  * Agrupa atributos comunes como título, fecha de edición y editorial.

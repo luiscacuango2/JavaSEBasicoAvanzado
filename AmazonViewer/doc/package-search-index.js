@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.anncode.amazonviewer"},{"l":"com.anncode.amazonviewer.model"},{"l":"com.anncode.util"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.anncode.amazonviewer"},{"l":"com.anncode.amazonviewer.dao"},{"l":"com.anncode.amazonviewer.db"},{"l":"com.anncode.amazonviewer.model"},{"l":"com.anncode.util"}]

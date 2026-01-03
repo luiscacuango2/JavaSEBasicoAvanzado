@@ -11,8 +11,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * <h2>UserDAO</h2>
- *
+ * Interfaz que define las operaciones de persistencia para el objeto {@link User}.
+ * <p>
+ * Hereda de {@link IDBConnection} para gestionar la comunicación con la base de datos MySQL.
+ * Su responsabilidad principal es la autenticación de usuarios y la creación dinámica
+ * de perfiles, permitiendo que el sistema asocie correctamente los registros de
+ * visualización con un identificador de usuario único.
+ * </p>
+ * @author Luigi
+ * @version 1.2
+ * @since 2026-01-03
  */
 public interface UserDAO extends IDBConnection {
 

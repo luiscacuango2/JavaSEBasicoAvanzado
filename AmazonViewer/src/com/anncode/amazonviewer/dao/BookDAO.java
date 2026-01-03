@@ -10,15 +10,21 @@ import java.sql.*;
 import java.util.ArrayList;
 
 /**
- * <h2>BookDAO</h2>
- * Es una interfaz que
+ * Interfaz que define las operaciones de persistencia para el objeto {@link Book}.
+ * <p>
+ * Hereda de {@link IDBConnection} para gestionar la conexión a la base de datos.
+ * Proporciona métodos por defecto para realizar operaciones CRUD (Create, Read, Update, Delete)
+ * y métodos específicos para verificar el estado de lectura de los libros por parte de un usuario.
+ * </p>
+ * @author Luigi
+ * @version 1.3
+ * @since 2026-01-03
  */
 public interface BookDAO extends IDBConnection {
 
     /**
      * Registra en la base de datos que un libro ha sido leído.
      * @param book El libro leído.
-     * @return El libro con su estado actualizado.
      */
     default void setBookRead(Book book) {
         String query = "INSERT INTO " + TViewed.NAME +
@@ -96,6 +102,7 @@ public interface BookDAO extends IDBConnection {
 
     /**
      * Lee las páginas de la tabla 'page' para un libro específico.
+     * @param idBook El identificador del libro.
      * @return Una lista de páginas.
      */
     default ArrayList<Page> readPages(int idBook) {
