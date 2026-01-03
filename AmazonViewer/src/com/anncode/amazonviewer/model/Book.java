@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  * <h2>Book</h2>
- * Book es una clase que representa los libros en la aplicación.
+ * Es una clase que representa los libros en la aplicación.
  * <p>
  *  Hereda de {@link Publication} e implementa {@link IVisualizable} para
  *  gestionar el tiempo de lectura y el estado de leído.
@@ -60,18 +60,34 @@ public class Book extends Publication implements IVisualizable, BookDAO {
         return isbn;
     }
 
+    /**
+     * Define el ISBN del libro.
+     * @param isbn El ISBN a establecer.
+     */
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
+    /**
+     * Obtiene el tiempo de lectura del libro.
+     * @return El tiempo de lectura en milisegundos.
+     */
     public int getTimeReaded() {
         return timeReaded;
     }
 
+    /**
+     * Define el tiempo de lectura del libro.
+     * @param timeReaded El tiempo de lectura a establecer.
+     */
     public void setTimeReaded(int timeReaded) {
         this.timeReaded = timeReaded;
     }
 
+    /**
+     * Obtiene la lista de páginas del libro.
+     * @return Un {@code ArrayList} de objetos {@link Page}.
+     */
     public ArrayList<Page> getPages() {
         return pages;
     }
@@ -81,13 +97,11 @@ public class Book extends Publication implements IVisualizable, BookDAO {
     }
 
     /**
-     * {@inheritDoc}
      * <p>
      * Construye una representación en cadena de texto detallada del libro.
      * Incluye el título, la editorial, la fecha de edición y recorre el arreglo
      * de autores para listarlos de forma tabular.
      * </p>
-     *
      * @return Una cadena de texto ({@code String}) formateada con la ficha técnica del libro.
      */
     @Override
@@ -96,11 +110,11 @@ public class Book extends Publication implements IVisualizable, BookDAO {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String dateFormated = sdf.format(getEditionDate());
 
-        String detailBook = "\n :: BOOK ::" +
-                "\n Title: " + getTitle() +
+        String detailBook = "\n :: DETALLES DEL LIBRO ::" +
+                "\n Título: " + getTitle() +
                 "\n Editorial: " + getEditorial() +
-                "\n Edition Date: " + dateFormated + // Usamos la fecha formateada
-                "\n Authors: ";
+                "\n Fecha Edición: " + dateFormated + // Usamos la fecha formateada
+                "\n Autores: ";
         // Obtenemos el arreglo de autores
         String[] authors = getAuthors();
 
@@ -120,7 +134,6 @@ public class Book extends Publication implements IVisualizable, BookDAO {
      */
     @Override
     public Date startToSee(Date dateI) {
-        // TODO Auto-generated method stub
         return dateI;
     }
 
@@ -129,7 +142,6 @@ public class Book extends Publication implements IVisualizable, BookDAO {
      */
     @Override
     public void stopToSee(Date dateI, Date dateF) {
-        // TODO Auto-generated method stub
         if (dateF.getTime() > dateI.getTime()) {
             setTimeReaded((int) (dateF.getTime() - dateI.getTime()));
         } else {
@@ -150,10 +162,12 @@ public class Book extends Publication implements IVisualizable, BookDAO {
         int response = 0;
         boolean finished = false;
 
+        System.out.println(this.toString());
+
         do {
             System.out.println("==============================================");
             System.out.println(" LEYENDO: " + getTitle().toUpperCase());
-            System.out.println(" Pagina: " + getPages().get(i).getNumber() + " de " + getPages().size());
+            System.out.println(" Página: " + getPages().get(i).getNumber() + " de " + getPages().size());
             System.out.println("----------------------------------------------");
             System.out.println(getPages().get(i).getContent());
             System.out.println("==============================================\n");
@@ -201,7 +215,6 @@ public class Book extends Publication implements IVisualizable, BookDAO {
         ArrayList<Book> books = bookDAO.read();
 
         for (Book book : books) {
-            // Aquí ya no habrá conflicto de tipos
             ArrayList<Page> pagesFromDB = bookDAO.readPages(book.getId());
 
             if (pagesFromDB.isEmpty()) {
@@ -210,13 +223,5 @@ public class Book extends Publication implements IVisualizable, BookDAO {
             book.setPages(pagesFromDB);
         }
         return books;
-    }
-
-    private static ArrayList<Page> makePagesList() {
-        ArrayList<Page> pages = new ArrayList<>();
-        for (int i = 1; i <= 3; i++) {
-            pages.add(new Page(i, "Contenido de la página " + i + "..."));
-        }
-        return pages;
     }
 }

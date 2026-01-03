@@ -9,10 +9,14 @@ import java.util.ArrayList;
 
 /**
  * <h2>Chapter</h2>
- * Representa los capítulos individuales de una serie.
+ * Es una clase que representa los capítulos individuales de una serie.
  * <p>
  * Hereda de {@link Movie} y contiene información específica sobre el número
- * de sesión y la serie a la que pertenece.
+ * de capítulos y la serie a la que pertenece.
+ * </p>
+ * <p>
+ *     Chapter es una extensión de {@link ChapterDAO} que se caracteriza
+ *     por poseer los detalles de la producción y su serie.
  * </p>
  * @see Film
  * @author Luigi
@@ -36,7 +40,6 @@ public class Chapter extends Movie implements ChapterDAO {
      */
 	public Chapter(String title, String genre, String creator, int duration, short year, int sessionNumber, Serie serie) {
 		super(title, genre, creator, duration, year);
-		// TODO Auto-generated constructor stub
 		this.setSessionNumber(sessionNumber);
 		this.setSerie(serie);
 	}
@@ -50,20 +53,23 @@ public class Chapter extends Movie implements ChapterDAO {
 	}
 
     /**
-     * Define la serie
-     * @return {@link Serie}
+     * Obtiene la serie a la que pertenece el capítulo.
+     * @return {@link Serie} asociado al capítulo.
      */
 	public Serie getSerie() {
 		return serie;
 	}
 
+    /**
+     * Define la serie a la que pertenece el capítulo.
+     * @param serie Objeto {@link Serie} a asignar.
+     */
 	public void setSerie(Serie serie) {
 		this.serie = serie;
 	}
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return  "\n :: SERIE ::" + 
 				"\n Title: " + getSerie().getTitle() +
 				"\n :: CHAPTER ::" + 
@@ -115,6 +121,10 @@ public class Chapter extends Movie implements ChapterDAO {
         }
     }
 
+    /**
+     * Obtiene el identificador del material dado el nombre del material.
+     * {@inheritDoc}
+     */
     @Override
     public int getMaterialIdByName(String name, Connection conn) throws SQLException {
         // Le indicamos que use la implementación de ChapterDAO (o MovieDAO, son idénticas)

@@ -50,11 +50,11 @@ public class Magazine extends Publication implements MagazineDAO {
     }
 
     /**
-     * {@inheritDoc}
      * <p>
      * Construye una ficha técnica detallada de la revista, incluyendo su
      * título, editorial y la lista de autores asociados.
      * </p>
+     * @return {@code String} con los detalles del objeto Revistas
      */
     @Override
     public String toString() {
@@ -62,11 +62,11 @@ public class Magazine extends Publication implements MagazineDAO {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String dateFormated = sdf.format(getEditionDate());
 
-        String detailMagazine = "\n :: MAGAZINE ::" +
-                    "\n Title: " + getTitle() +
+        String detailMagazine = "\n :: DETALLES DE LA REVISTA ::" +
+                    "\n Título: " + getTitle() +
                     "\n Editorial: " + getEditorial() +
-                    "\n Edition Date: " + dateFormated + // Usamos la fecha formateada
-                    "\n Authors: ";
+                    "\n Fecha Edición: " + dateFormated + // Usamos la fecha formateada
+                    "\n Autores: ";
         // Obtenemos el arreglo de autores
         String[] authors = getAuthors();
 
@@ -108,7 +108,7 @@ public class Magazine extends Publication implements MagazineDAO {
         this.setMagazineRead(this);
 
         // 3. Feedback visual para el usuario
-        System.out.println("\n==============================================");
+        System.out.println("==============================================");
         System.out.println(" ABRIENDO REVISTA: " + getTitle().toUpperCase());
         System.out.println("==============================================");
 
@@ -119,16 +119,11 @@ public class Magazine extends Publication implements MagazineDAO {
                 Thread.sleep(300);
                 System.out.print(".");
             }
-            System.out.println("\n");
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
 
         // 4. Mostrar la información técnica (toString corregido anteriormente)
         System.out.println(this.toString());
-
-        System.out.println("\n----------------------------------------------");
-        System.out.println(" La revista ha sido marcada como leída.");
-        System.out.println("----------------------------------------------\n");
     }
 }

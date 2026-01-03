@@ -1,6 +1,7 @@
 package com.anncode.amazonviewer.model;
 
 /**
+ * <h2>Film</h2>
  * Clase padre abstracta de la familia Films.
  * <p>
  * Esta clase es la base para todas las producciones. Como es abstracta

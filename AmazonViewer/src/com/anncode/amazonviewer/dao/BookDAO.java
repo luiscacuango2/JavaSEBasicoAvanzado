@@ -9,6 +9,10 @@ import com.anncode.amazonviewer.model.Page;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * <h2>BookDAO</h2>
+ * Es una interfaz que
+ */
 public interface BookDAO extends IDBConnection {
 
     /**
@@ -37,6 +41,7 @@ public interface BookDAO extends IDBConnection {
 
     /**
      * Busca dinámicamente el ID de un material por su nombre en la tabla 'material'.
+     * @return El ID del material.
      */
     default int getMaterialIdByName(String materialName, Connection connection) throws SQLException {
         int idMaterial = 0;
@@ -54,6 +59,10 @@ public interface BookDAO extends IDBConnection {
         return idMaterial;
     }
 
+    /**
+     * Obtiene una lista de libros desde la base de datos.
+     * @return Una lista de libros.
+     */
     default ArrayList<Book> read() {
         ArrayList<Book> books = new ArrayList<>();
         String query = "SELECT * FROM " + TBook.NAME;
@@ -87,6 +96,7 @@ public interface BookDAO extends IDBConnection {
 
     /**
      * Lee las páginas de la tabla 'page' para un libro específico.
+     * @return Una lista de páginas.
      */
     default ArrayList<Page> readPages(int idBook) {
         ArrayList<Page> pages = new ArrayList<>();
@@ -115,6 +125,7 @@ public interface BookDAO extends IDBConnection {
 
     /**
      * Verifica si el libro existe en la tabla viewed para el usuario actual.
+     * @return {@code true} si el libro ha sido leído, {@code false} en caso contrario.
      */
     private boolean getIsBookRead(Connection connection, int idBook) {
         boolean read = false;

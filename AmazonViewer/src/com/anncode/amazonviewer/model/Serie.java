@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Representa una serie de televisión dentro de Amazon Viewer.
  * <p>
  * Una serie es una extensión de {@link Film} que se caracteriza por poseer
- * una cantidad de temporadas (sesiones) y una colección de objetos {@link Chapter}.
+ * una cantidad de capítulos y una colección de objetos {@link Chapter}.
  * </p>
  * @author Luigi
  * @version 1.2
@@ -66,6 +66,7 @@ public class Serie extends Film {
     }
 
     /**
+     * Define la cantidad de temporadas disponibles.
      * @param sessionQuantity La cantidad de temporadas a asignar.
      */
     public void setSessionQuantity(int sessionQuantity) {

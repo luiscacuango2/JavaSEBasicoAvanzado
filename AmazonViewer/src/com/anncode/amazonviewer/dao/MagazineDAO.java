@@ -41,6 +41,7 @@ public interface MagazineDAO extends IDBConnection {
 
     /**
      * Busca dinámicamente el ID de un material por su nombre en la tabla 'material'.
+     * @return El ID del material.
      */
     default int getMaterialIdByName(String materialName, Connection connection) throws SQLException {
         int idMaterial = 0;
@@ -58,6 +59,10 @@ public interface MagazineDAO extends IDBConnection {
         return idMaterial;
     }
 
+    /**
+     * Método que saca de la base de datos un listado de todas las revistas.
+     * @return Una lista de revistas.
+     */
     default ArrayList<Magazine> read() {
         ArrayList<Magazine> magazines = new ArrayList<>();
         String query = "SELECT * FROM " + TMagazine.NAME;
@@ -83,6 +88,12 @@ public interface MagazineDAO extends IDBConnection {
         return magazines;
     }
 
+    /**
+     * Obtiene el estado de lectura de una revista.
+     * @param connection Conexión a la base de datos.
+     * @param idMagazine ID de la revista.
+     * @return {@code true} si la revista ha sido leída, {@code false} en caso contrario.
+     */
     private boolean getMagazineRead(Connection connection, int idMagazine) {
         boolean read = false;
         // La query es la misma para todos los materiales, lo que cambia es el ID_MATERIAL que enviamos

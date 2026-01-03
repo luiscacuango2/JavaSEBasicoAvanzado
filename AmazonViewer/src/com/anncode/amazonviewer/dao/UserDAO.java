@@ -10,11 +10,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * <h2>UserDAO</h2>
+ *
+ */
 public interface UserDAO extends IDBConnection {
 
     /**
      * Busca un usuario por nombre. Si no existe, lo crea.
-     * @param name Nombre del usuario (ej. "Luigi")
+     * @param name Nombre del usuario (ej. "Luis")
      * @return Objeto User con su ID asignado por la DB.
      */
     default User login(String name) {
@@ -43,6 +47,7 @@ public interface UserDAO extends IDBConnection {
 
     /**
      * Inserta un nuevo usuario y recupera el ID generado.
+     * @return Objeto User con su ID asignado por la DB.
      */
     private User insertUser(User user, Connection connection) throws SQLException {
         String queryInsert = "INSERT INTO " + TUser.NAME + " (" + TUser.USERNAME + ") VALUES (?)";
