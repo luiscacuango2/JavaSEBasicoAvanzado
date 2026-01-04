@@ -37,13 +37,13 @@ public interface MovieDAO extends IDBConnection {
 
         try (Connection connection = connectToDB()) {
             // OBTENCIÓN DINÁMICA DEL ID DE MATERIAL
-            int idMaterial = getMaterialIdByName(MaterialNames.MOVIE, connection);
+            int idMaterial = getMaterialIdByName(movie.getMaterialName(), connection);
 
             try (PreparedStatement pstmt = connection.prepareStatement(query)) {
                 pstmt.setInt(1, idMaterial);            // ID Material Dinámico
                 pstmt.setInt(2, movie.getId());         // ID Elemento Dinámico
                 pstmt.setInt(3, Main.activeUser.getId()); // ID Usuario Dinámico
-                pstmt.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
+                pstmt.setTimestamp(4, new java.sql.Timestamp(System.currentTimeMillis()));
 
                 pstmt.executeUpdate();
                 movie.setViewed(true);
@@ -54,6 +54,13 @@ public interface MovieDAO extends IDBConnection {
         return movie;
     }
 
+    /**
+     * Retorna el nombre del material para identificarlo en la base de datos.
+     * Las subclases como Chapter deben sobrescribir este método.
+     */
+    default String getMaterialName() {
+        return com.anncode.amazonviewer.db.DataBase.MaterialNames.MOVIE;
+    }
 
     /**
      * Lee todas las películas de la base de datos y verifica si han sido vistas.

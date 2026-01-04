@@ -1,39 +1,33 @@
 package com.anncode.amazonviewer;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import com.anncode.amazonviewer.dao.MagazineDAO;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import com.anncode.amazonviewer.dao.SerieDAO;
 import com.anncode.amazonviewer.dao.UserDAO;
+import com.anncode.amazonviewer.dao.ViewedDAO;
 import com.anncode.amazonviewer.model.*;
 import com.anncode.makereport.Report;
 import com.anncode.util.AmazonUtil;
 
 /**
- * Main es el punto de entrada de la aplicación que permite gestionar la
+ * La aplicación permite gestionar la
  * visualización de contenido multimedia: Películas, Series, Libros y Revistas.
  * <p>
  * El programa ofrece una interfaz de consola para interactuar con el catálogo,
- * marcar contenidos como vistos o leídos, y generar reportes de consumo en archivos de texto.
- * </p>
- * <p>
- * Regla de negocio: Todos los elementos son visualizables o leíbles a excepción
- * de las Revistas (Magazines), las cuales solo se muestran en modo exposición.
+ * marcar contenidos como vistos o leídos, y generar reportes en archivos de texto.
  * </p>
  * @author Luigi
- * @version 1.2
- * @since 2025-12-31
+ * @version 1.3
+ * @since 2026-01-03
  */
 public class Main implements UserDAO {
     /** Lista persistente de usuarios cargados en memoria */
     public static User activeUser;
     static ArrayList<Movie> movies = new ArrayList<>();;
     static ArrayList<Serie> series = new ArrayList<>();
-    static ArrayList<Chapter> chapters = new ArrayList<>();
     static ArrayList<Book> books = new ArrayList<>();
     static ArrayList<Magazine> magazines = new ArrayList<>();
 
@@ -77,16 +71,15 @@ public class Main implements UserDAO {
 		int exit = 0;
 		do {
 
-			System.out.println("BIENVENIDOS AMAZON VIEWER");
-			System.out.println("");
-			System.out.println("Selecciona el número de la opción deseada");
-			System.out.println("1. Movies");
+			System.out.println("\nBIENVENIDOS A AMAZON VIEWER");
+			System.out.println("Seleccione una Opción:");
+			System.out.println("1. Películas");
 			System.out.println("2. Series");
-			System.out.println("3. Books");
-			System.out.println("4. Magazines");
-			System.out.println("5. Report");
-			System.out.println("6. Report Today");
-			System.out.println("0. Exit");
+			System.out.println("3. Libros");
+			System.out.println("4. Revistas");
+			System.out.println("5. Reporte Consolidado");
+			System.out.println("6. Reporte de Hoy");
+			System.out.println("0. Salir");
 
 			//Leer la respuesta del usuario
 			int response = AmazonUtil.validateUserResponseMenu(0, 6);
@@ -113,14 +106,13 @@ public class Main implements UserDAO {
 					exit = 1;
 					break;
 				case 6:
-					//Date date = new Date();
 					makeReport(new Date());
 					exit = 1;
 					break;
 
 				default:
 					System.out.println();
-					System.out.println("....¡¡Selecciona una opción!!....");
+					System.out.println("....¡Seleccione una opción!....");
 					System.out.println();
 					exit = 1;
 					break;
@@ -132,13 +124,10 @@ public class Main implements UserDAO {
      * Gestiona el submenú de películas, permitiendo seleccionar una para su visualización.
      */
 	public static void showMovies() {
-
 		int exit = 1;
 
 		do {
-			System.out.println();
-			System.out.println(":: MOVIES ::");
-			System.out.println();
+			System.out.println(":: LISTADO DE PELÍCULAS ::");
 
             AtomicInteger counter = new AtomicInteger(1);
             movies.forEach(m -> System.out.println(counter.getAndIncrement() + ". " + m.getTitle() + ". Visto: " + m.isViewed()));
@@ -147,7 +136,7 @@ public class Main implements UserDAO {
 //				System.out.println(i+1 + ". " + movies.get(i).getTitle() + " Visto: " + movies.get(i).isViewed());
 //			}
 
-			System.out.println("0. Regresar al Menu");
+			System.out.println("0. REGRESAR AL MENU PRINCIPAL");
 			System.out.println();
 
 			//Leer Respuesta usuario
@@ -173,14 +162,12 @@ public class Main implements UserDAO {
 		int exit = 1;
 
 		do {
-			System.out.println();
-			System.out.println(":: SERIES ::");
-			System.out.println();
+			System.out.println(":: LISTADO DE SERIES ::");
 
             AtomicInteger counter = new AtomicInteger(1);
             series.forEach(s -> System.out.println(counter.getAndIncrement() + ". " + s.getTitle() + ". Visto: " + s.isViewed()));
 
-			System.out.println("0. Regresar al Menu");
+			System.out.println("0. REGRESAR AL MENU PRINCIPAL");
 			System.out.println();
 
 			//Leer Respuesta usuario
@@ -197,8 +184,7 @@ public class Main implements UserDAO {
                 // 1. Mostramos los capítulos
                 showChapters(serieSeleccionada.getChapters());
 
-                // 2. RE-VERIFICACIÓN MANUAL:
-                // Al regresar de los capítulos, comprobamos si todos están vistos
+                // 2. Al regresar de los capítulos, comprobamos si todos están vistos
                 int contadorVistos = 0;
                 for (Chapter c : serieSeleccionada.getChapters()) {
                     if (c.getIsViewed()) contadorVistos++;
@@ -219,20 +205,16 @@ public class Main implements UserDAO {
      * @param chaptersOfSerieSelected Lista de capítulos pertenecientes a la serie elegida.
      */
 	public static void showChapters(ArrayList<Chapter> chaptersOfSerieSelected) {
-        /** Lista persistente de capítulos cargados en memoria */
-//        chapters = chaptersOfSerieSelected;
-
 		int exit = 1;
 
 		do {
-			System.out.println();
-			System.out.println(":: CHAPTERS ::");
-			System.out.println();
+			System.out.println("SERIE: " + chaptersOfSerieSelected.get(0).getSerie().getTitle());
+			System.out.println(":: CAPÍTULOS ::");
 
             AtomicInteger counter = new AtomicInteger(1);
             chaptersOfSerieSelected.forEach(c -> System.out.println(counter.getAndIncrement() + ". " + c.getTitle() + ". Visto: " + c.isViewed()));
 
-			System.out.println("0. Regresar a Series");
+			System.out.println("0. REGRESAR A SERIES");
 			System.out.println();
 
 			//Leer Respuesta usuario
@@ -240,15 +222,13 @@ public class Main implements UserDAO {
 
 			if(response == 0) {
 				exit = 0;
-//                showSeries();
 			}
 
             if(response > 0) {
                 Chapter chapterSelected = chaptersOfSerieSelected.get(response-1);
                 chapterSelected.view();
 
-                // Después de ver un capítulo, verificamos si la serie padre
-                // ahora está vista y actualizamos nuestra lista global.
+                // Después de ver un capítulo, actualizamos nuestra lista global.
                 if (Boolean.parseBoolean(chapterSelected.getSerie().isViewed())) {
                     // Buscamos la serie en nuestra lista estática y la actualizamos
                     for (Serie s : series) {
@@ -269,14 +249,13 @@ public class Main implements UserDAO {
 		int exit = 1;
 
 		do {
-			System.out.println();
-			System.out.println(":: BOOKS ::");
-			System.out.println();
+            System.out.println();
+			System.out.println(":: LISTADO DE LIBROS ::");
 
             AtomicInteger counter = new AtomicInteger(1);
-            books.forEach(b -> System.out.println(counter.getAndIncrement() + ". " + b.getTitle() + ". Leido: " + b.isReaded()));
+            books.forEach(b -> System.out.println(counter.getAndIncrement() + ". " + b.getTitle() + ". Leído: " + b.isReaded()));
 
-			System.out.println("0. Regresar al Menu");
+			System.out.println("0. REGRESAR AL MENU PRINCIPAL");
 			System.out.println();
 
 			//Leer Respuesta usuario
@@ -312,7 +291,7 @@ public class Main implements UserDAO {
             AtomicInteger counter = new AtomicInteger(1);
             magazines.forEach(ma -> System.out.println(counter.getAndIncrement() + ". " + ma.getTitle() + ". Leida: " + ma.isReaded()));
 
-            System.out.println("0. Regresar al Menu Principal");
+            System.out.println("0. REGRESAR AL MENU PRINCIPAL");
             System.out.println();
 
             // 1. CORRECCIÓN: El rango debe ser entre 0 y el tamaño de la lista
@@ -336,88 +315,126 @@ public class Main implements UserDAO {
     }
 
     /**
-     * Genera un reporte general de todos los elementos marcados como vistos o leídos.
-     * Utiliza la clase {@link Report} para escribir el archivo en disco.
+     * Genera un reporte consolidado de todos los elementos marcados como
+     * vistos o leídos en formato de texto plano.
+     * <p>
+     * Realiza un proceso de filtrado y aplanamiento (flattening) de las colecciones
+     * de {@link Movie}, {@link Serie} (incluyendo sus {@link Chapter}) y {@link Book}
+     * utilizando la API de <b>Java Streams</b> para identificar exclusivamente los
+     * elementos con estado "visto" o "leído".
+     * </p>
+     * <p><b>Flujo de ejecución:</b></p>
+     * <ol>
+     * <li>Filtra los elementos de contenido mediante predicados de estado.</li>
+     * <li>Concatena la representación {@code toString()} de cada objeto.</li>
+     * <li>Utiliza el método {@code makeReport()} de la clase {@link Report}
+     * para guardar el archivo en disco.</li>
+     * </ol>
+     * @since 2026-01-03
+     * @author Luigi
+     * @see Report
+     * @see Movie
+     * @see Serie
+     * @see Book
      */
-	public static void makeReport() {
+    public static void makeReport() {
 
-		Report report = new Report();
-		report.setNameFile("reporte");
-		report.setExtension("txt");
-		report.setTitle(":: VISTOS/LEIDOS ::");
-		String contentReport = "REPORTE GENERAL\n";;
+        // 1. Obtener la actividad real desde la base de datos
+        ViewedDAO viewedDAO = new ViewedDAO() {};
+        ArrayList<Viewed> viewedList = viewedDAO.read(); // Traemos TODO lo visto
 
-		for (Movie movie : movies) {
-			if (movie.getIsViewed()) {
-				contentReport += movie.toString() + "\n";
-			}
-		}
+        // 2. Configurar el reporte
+        Report report = new Report();
+        report.setNameFile("Reporte-Consolidado");
+        report.setExtension("txt");
+        report.setTitle(":: REPORTE CONSOLIDADO VISTOS/LEIDOS ::");
 
-		for (Serie serie : series) {
-			ArrayList<Chapter> chapters = serie.getChapters();
-			for (Chapter chapter : chapters) {
-				if (chapter.getIsViewed()) {
-					contentReport += chapter.toString() + "\n";
-				}
-			}
-		}
+        // Verificamos cuantos registros trae la lista
+        System.out.println("Registros encontrados para el reporte consolidado: " + viewedList.size());
 
-		for (Book book : books) {
-			if (book.getIsReaded()) {
-				contentReport += book.toString() + "\n";
-			}
-		}
+        // 3. Cruzar los IDs de la DB con los objetos en memoria (Movies, Chapters, etc.)
+        String contentReport = viewedList.stream()
+                .map(v -> findContentById(v.getIdItem(), v.getIdType())) // Buscamos el objeto real
+                .filter(Objects::nonNull)                               // Evitamos nulos
+                .map(item -> item.toString() + "\n")
+                .collect(Collectors.joining("", ":: REPORTE CONSOLIDADO VISTOS/LEIDOS ::\n", ""));
 
-		report.setContent(contentReport);
-		report.makeReport();
-		System.out.println("Reporte Total");
-		System.out.println();
-	}
+        // 4. Asignar y generar
+        report.setContent(contentReport);
+        report.makeReport();
+
+        System.out.println("Reporte Consolidado Generado con Éxito");
+        System.out.println();
+    }
 
     /**
-     * Genera un reporte cronológico detallado con la fecha y hora actual.
-     * Sobrecarga el método {@link #makeReport()} para incluir una estampa de tiempo
-     * en el nombre del archivo y en el encabezado.
-     * @param date Objeto {@link Date} con la fecha para el reporte.
+     * Genera un reporte cronológico filtrado por una fecha específica (hoy).
+     * <p>
+     * Este método unifica el historial de {@link Movie}, {@link Chapter} y {@link Book}
+     * que coincidan con el parámetro {@code date}. Utiliza la API de Streams para
+     * optimizar la búsqueda en colecciones grandes y formatea la salida en español.
+     * </p>
+     * @param date Fecha para la cual se desea filtrar los elementos vistos o leídos.
      */
-	public static void makeReport(Date date) {
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-h-m-s");
-		String dateString = df.format(date);
-		Report report = new Report();
+    public static void makeReport(Date date) {
+        // 1. Configuración de formatos
+        SimpleDateFormat dfFile = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+        SimpleDateFormat dfContent = new SimpleDateFormat("EEEE d 'de' MMMM 'de' yyyy", new Locale("es", "ES"));
 
-		report.setNameFile("reporte" + dateString);
-		report.setExtension("txt");
-		report.setTitle(":: VISTOS/LEIDOS ::");
+        Report report = new Report();
+        report.setNameFile("reporte_diario_" + dfFile.format(date));
+        report.setExtension("txt");
+        report.setTitle(":: REPORTE DE ACTIVIDAD DE VISTOS/LEIDOS DE HOY::");
 
-        Locale spanishLocale = new Locale("es", "ES");
-        SimpleDateFormat dfNameDays = new SimpleDateFormat("EEEE d 'de' MMMM 'de' yyyy", spanishLocale);
-		dateString = dfNameDays.format(date);
-		String contentReport = "Fecha: " + dateString + "\n\n";
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.clear(Calendar.MINUTE);
+        cal.clear(Calendar.SECOND);
+        cal.clear(Calendar.MILLISECOND);
+        Date searchDate = cal.getTime();
 
-		for (Movie movie : movies) {
-			if (movie.getIsViewed()) {
-				contentReport += movie.toString() + "\n";
-			}
-		}
+        // 2. Obtener registros de la DB filtrados por la fecha recibida
+        // Aseguramos que solo procesamos lo que ocurrió el día "date"
+        ViewedDAO viewedDAO = new ViewedDAO() {};
+        ArrayList<Viewed> viewedList = viewedDAO.readByDate(searchDate);
 
-		for (Serie serie : series) {
-			ArrayList<Chapter> chapters = serie.getChapters();
-			for (Chapter chapter : chapters) {
-				if (chapter.getIsViewed()) {
-					contentReport += chapter.toString() + "\n";
-				}
-			}
-		}
+        // Verificar cuantos registros trae la lista
+        System.out.println("Registros encontrados para " + dfContent.format(searchDate) + ": " + viewedList.size());
 
-		for (Book book : books) {
-			if (book.getIsReaded()) {
-				contentReport += book.toString() + "\n";
-			}
-		}
-		report.setContent(contentReport);
-		report.makeReport();
+        // 3. Flujo Ultra-Optimizado: Unificamos Movies, Chapters y Books en un solo String
+        String bodyContent = viewedList.stream()
+                .map(v -> findContentById(v.getIdItem(), v.getIdType())) // Cruce de datos
+                .filter(Objects::nonNull)                               // Seguridad ante IDs inexistentes
+                .map(item -> item.toString() + "\n")
+                .collect(Collectors.joining("", "REPORTE DE ACTIVIDAD DE VISTOS/LEIDOS\nFecha: " + dfContent.format(date) + "\n", ""));
 
-		System.out.println("Reporte Generado de hoy");
-		System.out.println();
-	}
+        // 4. Validación: Si no hubo actividad, informamos al usuario
+        if (bodyContent.isEmpty()) {
+            System.out.println("No se encontró actividad de lectura o visualización para hoy: " + dfContent.format(date));
+            return;
+        }
+
+        // 5. Ensamblaje y creación del archivo
+        report.setContent(bodyContent);
+        report.makeReport();
+
+        System.out.println("Reporte del día generado exitosamente.");
+    }
+
+    /**
+     * Busca el objeto real (Movie, Chapter o Book) basándose en los metadatos de la tabla viewed.
+     */
+    private static Object findContentById(int id, int idType) {
+        // idType: 1=Movie, 2=Serie, 4=Book, 5=Magazine (Asegúrate que coincidan con tus constantes)
+        return switch (idType) {
+            case 1 -> movies.stream().filter(m -> m.getId() == id).findFirst().orElse(null);
+            case 2 -> series.stream()
+                    .flatMap(s -> s.getChapters().stream())
+                    .filter(c -> c.getId() == id).findFirst().orElse(null);
+            case 4 -> books.stream().filter(b -> b.getId() == id).findFirst().orElse(null);
+            case 5 -> magazines.stream().filter(ma -> ma.getId() == id).findFirst().orElse(null);
+            default -> null;
+        };
+    }
 }

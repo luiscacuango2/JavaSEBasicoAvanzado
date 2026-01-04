@@ -1,6 +1,7 @@
 package com.anncode.amazonviewer.model;
 
 import com.anncode.amazonviewer.dao.SerieDAO;
+import com.anncode.amazonviewer.dao.ViewedDAO;
 
 import java.util.ArrayList;
 
@@ -107,32 +108,38 @@ public class Serie extends Film {
     @Override
     public String toString() {
         return  "\n :: SERIE ::" +
-                "\n Título: " + getTitle() +
-                "\n Género: " + getGenre() +
-                "\n Año: " + getYear() +
-                "\n Creador: " + getCreator() +
-                "\n Duración: " + getDuration();
+                "\n TÍTULO: " + getTitle() +
+                "\n GÉNERO: " + getGenre() +
+                "\n AÑO: " + getYear() +
+                "\n CREADOR: " + getCreator() +
+                "\n DURACIÓN: " + getDuration();
     }
 
     /**
      * Genera una lista de series predefinidas para pruebas.
      * <p>
      * Este método también se encarga de disparar la creación de capítulos
-     * para cada serie generada mediante {@link Chapter#makeChaptersList(Serie)}.
+     * para cada serie generada mediante {@code Chapter.makeChaptersList(Serie)}.
      * </p>
      * @return Un {@code ArrayList} de objetos {@link Serie} con sus respectivos capítulos cargados.
      */
     public static ArrayList<Serie> makeSeriesList() {
         SerieDAO serieDAO = new SerieDAO() {};
-        ArrayList<Serie> series = serieDAO.read(); // Carga las series desde la DB
+        ArrayList<Serie> series = serieDAO.read();
+
+        // TRAEMOS LA LISTA DE VISTOS UNA SOLA VEZ (Optimización)
+        ViewedDAO viewedDAO = new ViewedDAO() {};
+        ArrayList<Viewed> viewedList = viewedDAO.read();
 
         for (Serie serie : series) {
-            // Obtenemos los capítulos de la DB
-            ArrayList<Chapter> chapters = Chapter.makeChaptersList(serie);
-            // LOS ASIGNAMOS A LA SERIE ACTUAL
+            // Pasamos la viewedList para que Chapter no tenga que volver a consultar la DB
+            ArrayList<Chapter> chapters = Chapter.makeChaptersList(serie, viewedList);
             serie.setChapters(chapters);
-        }
 
+            // Aprovechamos para marcar la Serie como vista si todos sus capítulos lo están
+            boolean todasVistas = chapters.stream().allMatch(Chapter::getIsViewed);
+            serie.setViewed(todasVistas);
+        }
         return series;
     }
 

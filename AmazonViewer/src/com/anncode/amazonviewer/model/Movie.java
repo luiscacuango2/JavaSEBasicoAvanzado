@@ -1,6 +1,7 @@
 package com.anncode.amazonviewer.model;
 
 import com.anncode.amazonviewer.dao.MovieDAO;
+import com.anncode.amazonviewer.db.DataBase.MaterialNames;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -85,12 +86,12 @@ public class Movie extends Film implements IVisualizable, MovieDAO {
      */
     @Override
     public String toString() {
-        return  "\n :: MOVIE ::" +
-                "\n Title: " + getTitle() +
-                "\n Genero: " + getGenre() +
-                "\n Year: " + getYear() +
-                "\n Creator: " + getCreator() +
-                "\n Duration: " + getDuration();
+        return  "\n :: PELÍCULA ::" +
+                "\n TÍTULO: " + getTitle() +
+                "\n GÉNERO: " + getGenre() +
+                "\n AÑO: " + getYear() +
+                "\n CREADOR: " + getCreator() +
+                "\n DURACIÓN: " + getDuration() + " min.";
     }
 
     /**
@@ -146,28 +147,29 @@ public class Movie extends Film implements IVisualizable, MovieDAO {
 
         Date dateI = startToSee(new Date());
 
-        System.out.println("\nReproduciendo: " + getTitle());
-
-        // Simulación de barra de progreso profesional
+        System.out.println(toString());
+        stopToSee(dateI, new Date());
+        // Simulación de barra de progreso
         int totalPasos = 20;
         for (int i = 0; i <= totalPasos; i++) {
             StringBuilder bar = new StringBuilder("[");
             for (int j = 0; j < totalPasos; j++) {
                 bar.append((j < i) ? "=" : " ");
             }
-            bar.append("] ").append(i * 50 / totalPasos).append("%");
+            bar.append("] ").append(i * 100 / totalPasos).append("%");
             System.out.print("\r" + bar.toString());
 
             try {
-                Thread.sleep(50);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
         }
+        System.out.println("\nVisualización finalizada.\n");
+    }
 
-        stopToSee(dateI, new Date());
-        System.out.println("\nVisualización finalizada.");
-        System.out.println(toString());
-        System.out.println("Tiempo total: " + getTimeViewed() + " ms");
+    @Override
+    public String getMaterialName() {
+        return MaterialNames.MOVIE;
     }
 }

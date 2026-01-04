@@ -61,11 +61,11 @@ public class Magazine extends Publication implements MagazineDAO {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String dateFormated = sdf.format(getEditionDate());
 
-        String detailMagazine = "\n :: DETALLES DE LA REVISTA ::" +
-                    "\n Título: " + getTitle() +
-                    "\n Editorial: " + getEditorial() +
-                    "\n Fecha Edición: " + dateFormated + // Usamos la fecha formateada
-                    "\n Autores: ";
+        String detailMagazine = "\n :: REVISTA ::" +
+                    "\n TÍTULO: " + getTitle() +
+                    "\n EDITORIAL: " + getEditorial() +
+                    "\n FECHA EDICIÓN: " + dateFormated + // Usamos la fecha formateada
+                    "\n AUTORES: ";
         // Obtenemos el arreglo de autores
         String[] authors = getAuthors();
 

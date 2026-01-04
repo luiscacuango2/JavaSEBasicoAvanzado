@@ -129,11 +129,11 @@ public class Book extends Publication implements IVisualizable, BookDAO {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String dateFormated = sdf.format(getEditionDate());
 
-        String detailBook = "\n :: DETALLES DEL LIBRO ::" +
-                "\n Título: " + getTitle() +
-                "\n Editorial: " + getEditorial() +
-                "\n Fecha Edición: " + dateFormated + // Usamos la fecha formateada
-                "\n Autores: ";
+        String detailBook = "\n :: LIBRO ::" +
+                "\n TÍTULO: " + getTitle() +
+                "\n EDITORIAL: " + getEditorial() +
+                "\n FECHA EDICIÓN: " + dateFormated + // Usamos la fecha formateada
+                "\n AUTORES: ";
         // Obtenemos el arreglo de autores
         String[] authors = getAuthors();
 
