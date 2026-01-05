@@ -8,7 +8,7 @@ package com.anncode.amazonviewer.db;
  * nombres de tablas o columnas desde un único punto.
  * </p>
  * @author Luigi
- * @version 1.2
+ * @version 1.3
  * @since 2026-01-03
  */
 public class DataBase {
@@ -29,6 +29,10 @@ public class DataBase {
      * Estos nombres deben coincidir con la columna 'name' de la tabla 'material'.
      */
     public static final class MaterialNames {
+        /**
+         * Constructor privado para evitar la instanciación de la clase de constantes.
+         */
+        private MaterialNames() {}
         /** Constante para el nombre del Material de Películas. */
         public static final String MOVIE    = "Movie";
         /** Constante para el nombre del Material de Series. */
@@ -43,6 +47,10 @@ public class DataBase {
 
     /** Tabla de Películas */
     public static final class TMovie {
+        /**
+         * Constructor privado para evitar la instanciación de la clase de constantes.
+         */
+        private TMovie() {}
         /** Constante para el nombre de la tabla de Películas. */
         public static final String NAME     = "movie";
         /** Constante para el identificador único de la tabla de Películas. */
@@ -61,6 +69,10 @@ public class DataBase {
 
     /** Tabla de Usuarios del sistema.*/
     public static final class TUser {
+        /**
+         * Constructor privado para evitar la instanciación de la clase de constantes.
+         */
+        private TUser() {}
         /** Nombres reales del Usuario. */
         public static final String NAME     = "user";
         /** Identificador único del Usuario. */
@@ -74,6 +86,10 @@ public class DataBase {
      * Tabla de transacciones que registra el historial de visualización y lectura.
      * */
     public static final class TViewed {
+        /**
+         * Constructor privado para evitar la instanciación de la clase de constantes.
+         */
+        private TViewed() {}
         /** Constante para el nombre de la tabla de Vistas. */
         public static final String NAME           = "viewed";
         /** Constante para el identificador único de la tabla de Vistas. */
@@ -90,6 +106,10 @@ public class DataBase {
 
     /** Tabla de Catálogo de Materiales (1. Película, 2. Serie, 3. Libro, etc.) */
     public static final class TMaterial {
+        /**
+         * Constructor privado para evitar la instanciación de la clase de constantes.
+         */
+        private TMaterial() {}
         /** Constante para el nombre de la tabla de Material. */
         public static final String NAME     = "material";
         /** Constante para el identificador único de la tabla de Material. */
@@ -103,6 +123,10 @@ public class DataBase {
      * Almacena datos de revistas y publicaciones periódicas.
      * */
     public static final class TMagazine {
+        /**
+         * Constructor privado para evitar la instanciación de la clase de constantes.
+         */
+        private TMagazine() {}
         /** Nombre de la tabla de Revistas. */
         public static final String NAME         = "magazine";
         /** Identificador único de la revista. */
@@ -119,6 +143,10 @@ public class DataBase {
 
     /** Tabla de Series */
     public static final class TSerie {
+        /**
+         * Constructor privado para evitar la instanciación de la clase de constantes.
+         */
+        private TSerie() {}
         /** Nombre de la serie. */
         public static final String NAME     = "serie";
         /** Identificador único de la serie. */
@@ -139,6 +167,10 @@ public class DataBase {
 
     /** Tabla de Capítulos de Series */
     public static final class TChapter {
+        /**
+         * Constructor privado para evitar la instanciación de la clase de constantes.
+         */
+        private TChapter() {}
         /** Nombre de la tabla de Capítulos. */
         public static final String NAME           = "chapter";
         /** Identificador único del capítulo. */
@@ -157,6 +189,10 @@ public class DataBase {
 
     /** Tabla de Libros (Agregada para completar el modelo) */
     public static final class TBook {
+        /**
+         * Constructor privado para evitar la instanciación de la clase de constantes.
+         */
+        private TBook() {}
         /** Nombre del libro. */
         public static final String NAME         = "book";
         /** Identificador único del libro. */
@@ -175,6 +211,10 @@ public class DataBase {
 
     /** Tabla de Páginas de Libros */
     public static final class TPage {
+        /**
+         * Constructor privado para evitar la instanciación de la clase de constantes.
+         */
+        private TPage() {}
         /** Nombre del libro. */
         public static final String NAME     = "page";
         /** Identificador único del libro. */

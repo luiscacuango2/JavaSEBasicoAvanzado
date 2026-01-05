@@ -6,6 +6,7 @@ import com.anncode.amazonviewer.db.IDBConnection;
 import com.anncode.amazonviewer.db.DataBase.TSerie;
 import com.anncode.amazonviewer.db.DataBase.TViewed;
 import com.anncode.amazonviewer.db.DataBase.MaterialNames;
+import com.anncode.amazonviewer.model.Chapter;
 import com.anncode.amazonviewer.model.Serie;
 import java.sql.*;
 import java.util.ArrayList;
@@ -85,6 +86,18 @@ public interface SerieDAO extends IDBConnection {
         return viewed;
     }
 
+    /**
+     * Registra en la base de datos que una serie completa ha sido visualizada.
+     * <p>
+     * Este método se invoca generalmente de forma automática cuando el sistema detecta
+     * que todos los capítulos asociados a una serie han sido marcados como vistos.
+     * Realiza una inserción en la tabla {@code viewed} utilizando el identificador
+     * de material correspondiente a las series.
+     * </p>
+     *
+     * @param serie La instancia de {@link Serie} que ha sido completada por el usuario.
+     * @see Chapter#view()
+     */
     default void setSerieViewed(Serie serie) {
         String query = "INSERT INTO " + TViewed.NAME +
                 " (" + TViewed.ID_MATERIAL + ", " + TViewed.ID_ELEMENT + ", " + TViewed.ID_USER + ", " + TViewed.DATE + ") " +

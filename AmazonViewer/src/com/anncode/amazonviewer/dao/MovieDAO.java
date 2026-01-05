@@ -57,6 +57,7 @@ public interface MovieDAO extends IDBConnection {
     /**
      * Retorna el nombre del material para identificarlo en la base de datos.
      * Las subclases como Chapter deben sobrescribir este método.
+     * @return El nombre del material.
      */
     default String getMaterialName() {
         return com.anncode.amazonviewer.db.DataBase.MaterialNames.MOVIE;

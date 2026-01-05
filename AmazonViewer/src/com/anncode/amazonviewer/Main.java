@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import com.anncode.amazonviewer.dao.SerieDAO;
 import com.anncode.amazonviewer.dao.UserDAO;
 import com.anncode.amazonviewer.dao.ViewedDAO;
@@ -330,8 +329,6 @@ public class Main implements UserDAO {
      * <li>Utiliza el método {@code makeReport()} de la clase {@link Report}
      * para guardar el archivo en disco.</li>
      * </ol>
-     * @since 2026-01-03
-     * @author Luigi
      * @see Report
      * @see Movie
      * @see Serie
